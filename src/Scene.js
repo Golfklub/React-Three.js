@@ -34,6 +34,7 @@ class App extends Component {
     this.controls = new OrbitControls(this.camera);
     this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    console.log(this.renderer.maxTextureSize);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };

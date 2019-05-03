@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
-
+import { circleframe } from "./component/Showroombutton";
 class App extends Component {
   componentDidMount() {
     this.sceneSetup();
@@ -32,7 +32,7 @@ class App extends Component {
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
     this.controls = new OrbitControls(this.camera);
-    this.controls.enableZoom = false;
+    // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
@@ -41,8 +41,9 @@ class App extends Component {
   addCustomSceneObjects = () => {
     //Add content
     Content.map(res => this.scene.add(res));
-    //Add curved plane
-    // this.scene.add(curvedplane);
+
+    //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
+    this.scene.add(circleframe);
     //Add sky
     this.scene.add(showroomsky);
   };

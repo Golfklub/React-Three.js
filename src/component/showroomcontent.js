@@ -17,5 +17,6 @@ export const Content = ee.map(res => {
   const mat = new THREE.MeshBasicMaterial({ map: textureBox });
   let boxs = new THREE.Mesh(boxA, mat);
   boxs.position.set(res.x, 0, 2);
+
   return boxs;
 });

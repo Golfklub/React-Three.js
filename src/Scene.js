@@ -39,27 +39,16 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    // this.sphere = new THREE.SphereGeometry(500, 60, 40);
-    // this.texture = new THREE.TextureLoader().load(
-    //   "https://i.imgur.com/SVMKD5z.jpg"
-    // );
-    // this.skytexture = new THREE.MeshBasicMaterial({ map: this.texture });
-    // this.spheres = new THREE.Mesh(this.sphere, this.skytexture);
-    // this.spheres.material.side = THREE.BackSide;
-
-    //Loop for add multi object to scene
+    //Add content
     Content.map(res => this.scene.add(res));
-    console.log(showroomsky);
+    //Add curved plane
+    // this.scene.add(curvedplane);
+    //Add sky
     this.scene.add(showroomsky);
-    // this.scene.background = this.texture;
   };
 
   animate = () => {
     this.frameId = requestAnimationFrame(this.animate);
-
-    // this.cube.rotation.x += 0.001;
-    // this.cube.rotation.y += 0.001;
-
     this.renderer.render(this.scene, this.camera);
   };
 
@@ -74,8 +63,6 @@ class App extends Component {
     while (this.scene.children.length > 0) {
       this.scene.remove(this.scene.children[0]);
     }
-    // this.geometry.dispose();
-    // this.material.dispose();
   };
 
   sceneDestroy = () => {

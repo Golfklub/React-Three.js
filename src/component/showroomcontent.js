@@ -12,10 +12,21 @@ const ee = [
 
 export const Content = ee.map(res => {
   const boxA = new THREE.BoxGeometry(1, 1, 1);
+
   boxA.scale(0.78, 0.78, 0);
+
+  const vector = new THREE.Vector3(res.x, 0, 2);
+
+  boxA.lookAt(vector);
+
   const textureBox = new THREE.TextureLoader().load(res.src);
-  const mat = new THREE.MeshBasicMaterial({ map: textureBox });
+
+  const mat = new THREE.MeshBasicMaterial({
+    map: textureBox
+  });
+  mat.transparent = true;
   let boxs = new THREE.Mesh(boxA, mat);
   boxs.position.set(res.x, 0, 2);
+
   return boxs;
 });

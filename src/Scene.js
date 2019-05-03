@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Content } from "./component/showroomcontent";
+import WebVRPolyfill from "webvr-polyfill";
+import { showroomsky } from "./component/ShowRoomSky";
 
 class App extends Component {
   componentDidMount() {
@@ -30,24 +32,26 @@ class App extends Component {
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
     this.controls = new OrbitControls(this.camera);
+    this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };
 
   addCustomSceneObjects = () => {
-    this.sphere = new THREE.SphereGeometry(500, 60, 40);
-    this.texture = new THREE.TextureLoader().load(
-      "https://i.imgur.com/SVMKD5z.jpg"
-    );
-    this.skytexture = new THREE.MeshBasicMaterial({ map: this.texture });
-    this.spheres = new THREE.Mesh(this.sphere, this.skytexture);
-    this.spheres.material.side = THREE.BackSide;
+    // this.sphere = new THREE.SphereGeometry(500, 60, 40);
+    // this.texture = new THREE.TextureLoader().load(
+    //   "https://i.imgur.com/SVMKD5z.jpg"
+    // );
+    // this.skytexture = new THREE.MeshBasicMaterial({ map: this.texture });
+    // this.spheres = new THREE.Mesh(this.sphere, this.skytexture);
+    // this.spheres.material.side = THREE.BackSide;
 
     //Loop for add multi object to scene
     Content.map(res => this.scene.add(res));
-    this.scene.add(this.spheres);
-    this.scene.background = this.texture;
+    console.log(showroomsky);
+    this.scene.add(showroomsky);
+    // this.scene.background = this.texture;
   };
 
   animate = () => {

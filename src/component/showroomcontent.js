@@ -28,7 +28,7 @@ export const Content = ee.map(res => {
     // boxs.scale.set(1.0, textureBox.image.height / textureBox.image.width, 1.0);
   });
   // textureBox.generateMipmaps = false;
-  textureBox.anisotropy = renderer.getMaxAnisotropy();
+  textureBox.anisotropy = 16
   const mat = new THREE.MeshBasicMaterial({
     map: textureBox
   });

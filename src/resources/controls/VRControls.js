@@ -4,7 +4,7 @@ import * as THREE from "three";
  * @author mrdoob / http://mrdoob.com
  */
 
-var VRControls = function(object, onError) {
+export const VRControls = function(object, onError) {
   var scope = this;
 
   var vrDisplay, vrDisplays;
@@ -13,9 +13,9 @@ var VRControls = function(object, onError) {
 
   var frameData = null;
 
-  if ("VRFrameData" in window) {
-    frameData = new THREE.VRFrameData();
-  }
+  // if ("VRFrameData" in window) {
+  //   frameData = new THREE.VRFrameData();
+  // }
 
   function gotVRDisplays(displays) {
     vrDisplays = displays;

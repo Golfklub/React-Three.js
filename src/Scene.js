@@ -49,11 +49,12 @@ class App extends Component {
   detectVrDevice = (camera, renderer, animate) => {
     navigator.getVRDisplays().then(function(vrDisplays) {
       if (vrDisplays.length) {
-        this.vrDisplay = vrDisplays[0];
+        let vrDisplay = vrDisplays[0];
         renderer.vr.enable = true;
         let controls = new VRControls(camera);
         controls.enableZoom = false;
-        this.vrDisplay.requestAnimationFrame(animate);
+        // controls.
+        vrDisplay.requestAnimationFrame(animate);
         console.log("VR!");
       } else {
         console.log("DeskTop!");

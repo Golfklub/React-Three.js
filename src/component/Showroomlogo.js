@@ -21,6 +21,7 @@ logos.scale(0.162, 0.162, 0);
 const logoimage = new THREE.TextureLoader().load(
   "https://i.imgur.com/lQbbCMn.png"
 );
+
 // logoimage.magFilter = THREE.LinearFilter;
 // logoimage.wrapS = THREE.RepeatWrapping;
 // logoimage.wrapT = THREE.RepeatWrapping;

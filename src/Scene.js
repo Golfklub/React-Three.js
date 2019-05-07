@@ -6,13 +6,17 @@ import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
+import { config } from "./component/configWebVR";
 class App extends Component {
   componentDidMount() {
+    const polyfill = new WebVRPolyfill(config);
     this.sceneSetup();
     this.addCustomSceneObjects();
     this.startAnimationLoop();
     window.addEventListener("resize", this.handleWindowResize);
   }
+
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleWindowResize);
@@ -31,12 +35,30 @@ class App extends Component {
     );
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    this.controls = new OrbitControls(this.camera);
+    this.detectVrDevice();
+    // this.controls = new OrbitControls(this.camera);
     this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    console.log(this.renderer.maxTextureSize);
+    console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
+  };
+
+  detectVrDevice = () => {
+    navigator.getVRDisplays().then(function(vrDisplays) {
+      if (vrDisplays.length) {
+        this.vrDisplay = vrDisplays[0];
+        this.controls = new THREE.VRControls(this.camera);
+        this.controls.enableZoom = false;
+
+        this.vrDisplay.requestAnimationFrame(this.animate);
+      } else {
+        this.controls = new THREE.OrbitControls(this.camera);
+        this.controls.enableZoom = false;
+        this.controls.target.set(0, 0, -0.000000000000000000001);
+        requestAnimationFrame(this.animate);
+      }
+    });
   };
 
   addCustomSceneObjects = () => {

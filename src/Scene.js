@@ -37,11 +37,11 @@ class App extends Component {
     );
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    // this.detectVrDevice(this.camera);
-    this.controls = new OrbitControls(this.camera);
+    this.detectVrDevice(this.camera);
+    // this.controls = new OrbitControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    console.log(this.renderer.max);
+    // console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };
@@ -53,7 +53,9 @@ class App extends Component {
         this.controls = new VRControls(camera);
         this.controls.enableZoom = false;
         this.vrDisplay.requestAnimationFrame(this.animate());
+        console.log("VR!");
       } else {
+        console.log("DeskTop!");
         this.controls = new OrbitControls(camera);
         this.controls.enableZoom = false;
         this.controls.target.set(0, 0, -0.000000000000000000001);

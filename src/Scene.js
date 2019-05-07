@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import { VRControls } from "./resources/controls/VRControls";
+import VRControls from "three-vrcontrols-module";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
@@ -35,25 +37,24 @@ class App extends Component {
     );
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    this.detectVrDevice();
+    this.detectVrDevice(this.camera);
     // this.controls = new OrbitControls(this.camera);
-    this.controls.enableZoom = false;
+    // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };
 
-  detectVrDevice = () => {
+  detectVrDevice = camera => {
     navigator.getVRDisplays().then(function(vrDisplays) {
       if (vrDisplays.length) {
         this.vrDisplay = vrDisplays[0];
-        this.controls = new THREE.VRControls(this.camera);
+        this.controls = new VRControls(camera);
         this.controls.enableZoom = false;
-
-        this.vrDisplay.requestAnimationFrame(this.animate);
+        this.vrDisplay.requestAnimationFrame(this.animate());
       } else {
-        this.controls = new THREE.OrbitControls(this.camera);
+        this.controls = new OrbitControls(camera);
         this.controls.enableZoom = false;
         this.controls.target.set(0, 0, -0.000000000000000000001);
         requestAnimationFrame(this.animate);

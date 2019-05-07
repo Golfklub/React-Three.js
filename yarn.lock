@@ -9129,6 +9129,11 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+three-vrcontrols-module@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/three-vrcontrols-module/-/three-vrcontrols-module-2.2.1.tgz#00bf9bca96b2f0bd44592df60a22df59beaec91f"
+  integrity sha512-F5ZH9oxR+QMRTAFZ1IxJvF377dNaoG5uZ4eB7NKPqgcUNmYCtZ2yhfbGD7O8RzQm2J+5wGfGTSV5a+GBkeRdsA==
+
 three.meshline@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/three.meshline/-/three.meshline-1.2.0.tgz#89a0c9d67d8062e5649dc0ac9aa16f14e7c199b5"

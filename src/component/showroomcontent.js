@@ -1,5 +1,6 @@
 import React from "react";
 import * as THREE from "three";
+import { NearestFilter, LinearFilter } from "three";
 
 const ee = [
   { x: -0.5, src: "https://i.imgur.com/IzIdIpm.png" },
@@ -20,11 +21,18 @@ export const Content = ee.map(res => {
 
   // boxA.lookAt(vector);
 
-  const textureBox = new THREE.TextureLoader().load(res.src);
+  const textureBox = new THREE.TextureLoader().load(res.src, textureBox => {
+    textureBox.needsUpdate = true;
+    textureBox.minFilter = LinearFilter;
+    textureBox.magFilter = LinearFilter;
+    // boxs.scale.set(1.0, textureBox.image.height / textureBox.image.width, 1.0);
+  });
+  // textureBox.generateMipmaps = false;
   textureBox.anisotropy = renderer.getMaxAnisotropy();
   const mat = new THREE.MeshBasicMaterial({
     map: textureBox
   });
+
   mat.transparent = true;
   let boxs = new THREE.Mesh(boxA, mat);
   boxs.position.set(res.x, 0, 1.675);

@@ -11,6 +11,7 @@
     "react-three-renderer-fiber": "^0.0.6",
     "react-use-gesture": "^5.0.0",
     "three": "^0.104.0",
+    "three-orbitcontrols": "^2.102.1",
     "three-vrcontrols-module": "^2.2.1",
     "three.meshline": "^1.2.0",
     "vec-la": "^1.5.0",

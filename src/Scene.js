@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-// import { VRControls } from "./resources/controls/VRControls";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import OrbitControls from "three-orbitcontrols";
 import VRControls from "three-vrcontrols-module";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
@@ -37,8 +37,8 @@ class App extends Component {
     );
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    this.detectVrDevice(this.camera);
-    // this.controls = new OrbitControls(this.camera);
+    // this.detectVrDevice(this.camera);
+    this.controls = new OrbitControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     console.log(this.renderer.max);
@@ -57,7 +57,7 @@ class App extends Component {
         this.controls = new OrbitControls(camera);
         this.controls.enableZoom = false;
         this.controls.target.set(0, 0, -0.000000000000000000001);
-        requestAnimationFrame(this.animate);
+        requestAnimationFrame(this.animate());
       }
     });
   };

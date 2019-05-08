@@ -24,28 +24,6 @@ class App extends Component {
   scene = new THREE.Scene();
 
   componentDidMount() {
-    navigator.getVRDisplays().then(vrDisplays => {
-      this.camera = new THREE.PerspectiveCamera(
-        80,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      );
-      if (vrDisplays.length) {
-        let vrDisplay = vrDisplays[0];
-        this.renderer.vr.enable = true;
-        let controls = new VRControls();
-        controls.enableZoom = false;
-        vrDisplay.requestAnimationFrame(this.animate);
-        console.log("VR!");
-      } else {
-        console.log("DeskTop!");
-        let controls = new OrbitControls(this.camera);
-        // controls.enableZoom = false;
-        controls.target.set(0, 0, 0.0001);
-        requestAnimationFrame(this.animate);
-      }
-    });
     this.sceneSetup();
     this.addCustomSceneObjects();
     this.startAnimationLoop();
@@ -62,13 +40,12 @@ class App extends Component {
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
-    this.camera.position.z = -0.001;
-    this.controls = new OrbitControls(this.camera);
-    this.controls.enableZoom = false;
+    this.camera.position.z = 0.001;
+    this.controls = new VRControls(this.camera);
+    // this.controls.enableZoom = false;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     console.log(this.renderer.getPixelRatio());
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
-    // console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };

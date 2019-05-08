@@ -10,6 +10,13 @@ import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
+import { leftNavigate, rightNavigate } from "./component/NavigateButton";
+import {
+  Toolbar,
+  exploreWolrdLogo,
+  yarvissWolrdLogo,
+  MyWorldLogo
+} from "./component/toolbar";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
 
@@ -20,29 +27,24 @@ class App extends Component {
     window.addEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate() {}
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleWindowResize);
-    this.stopAnimationLoop();
-    this.removeCustomSceneObjects();
-    this.sceneDestroy();
-  }
-
   sceneSetup = async () => {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
-      75,
+      80,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
+    this.raycaster = new THREE.Raycaster();
+    this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    // this.controls = new OrbitControls(this.camera);
-    // this.controls.enableZoom = false;
+    this.controls = new OrbitControls(this.camera);
+    this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    await this.detectVrDevice(this.camera, this.renderer, this.animate);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    console.log(this.renderer.getPixelRatio());
+    // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     // console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
@@ -60,8 +62,8 @@ class App extends Component {
       } else {
         console.log("DeskTop!");
         let controls = new OrbitControls(camera);
-        controls.enableZoom = false;
-        controls.target.set(0, 0, -0.000000000000000000001);
+        // controls.enableZoom = false;
+        controls.target.set(0, 0, -0.0001);
         requestAnimationFrame(animate);
       }
     });
@@ -74,6 +76,10 @@ class App extends Component {
     this.scene.add(logo);
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
     this.scene.add(circleframe);
+    //Add navigate button
+    this.scene.add(leftNavigate, rightNavigate);
+    //Add Toolsbar
+    this.scene.add(Toolbar);
     //Add sky
     this.scene.add(showroomsky);
   };
@@ -84,21 +90,6 @@ class App extends Component {
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();
-
-  stopAnimationLoop = () => {
-    cancelAnimationFrame(this.frameId);
-    this.frameId = null;
-  };
-
-  removeCustomSceneObjects = () => {
-    while (this.scene.children.length > 0) {
-      this.scene.remove(this.scene.children[0]);
-    }
-  };
-
-  sceneDestroy = () => {
-    // this.mount.removeChild(this.renderer.domElement);
-  };
 
   handleWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;

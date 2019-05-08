@@ -14,7 +14,7 @@ export const VRControls = function(object, onError) {
   var frameData = null;
 
   // if ("VRFrameData" in window) {
-  //   frameData = new THREE.VRFrameData();
+  //   frameData = new VRFrameData();
   // }
 
   function gotVRDisplays(displays) {

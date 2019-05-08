@@ -3,13 +3,13 @@ import * as THREE from "three";
 import { NearestFilter, LinearFilter } from "three";
 
 const ee = [
-  { x: -0.5, src: "https://i.imgur.com/IzIdIpm.png" },
-  { x: -1.26, src: "https://i.imgur.com/EDn1jl4.png" },
-  { x: -2.02, src: "https://i.imgur.com/ywT0mld.png" },
-  { x: 0.5, src: "https://i.imgur.com/cENEGeL.jpg" },
-  { x: 1.26, src: "https://i.imgur.com/GoJnd69.png" },
-  { x: 2.02, src: "https://i.imgur.com/fMCofVb.png" }
-];
+  { x: -0.5, src: "https://i.imgur.com/IzIdIpm.png", z: 1.474, rotation: 25 },
+  { x: -1.162, src: "https://i.imgur.com/EDn1jl4.png", z: 1.074, rotation: 15 },
+  { x: -1.536, src: "https://i.imgur.com/ywT0mld.png", z: 0.414, rotation: 5 },
+  { x: 1.536, src: "https://i.imgur.com/DQA2Y72.png", z: 0.414, rotation: -5 },
+  { x: 1.168, src: "https://i.imgur.com/GoJnd69.png", z: 1.109, rotation: -15 },
+  { x: 0.5, src: "https://i.imgur.com/fMCofVb.png", z: 1.474, rotation: -25 }
+]; //แก้ไขlayout ปรับค่า z แล้วหมุนแกนเอา
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
 export const Content = ee.map(res => {
@@ -17,25 +17,20 @@ export const Content = ee.map(res => {
 
   boxA.scale(0.7, 0.7, 0);
 
-  const vector = new THREE.Vector3(res.x, 0, 2);
-
-  // boxA.lookAt(vector);
-
   const textureBox = new THREE.TextureLoader().load(res.src, textureBox => {
     textureBox.needsUpdate = true;
     textureBox.minFilter = LinearFilter;
-    textureBox.magFilter = LinearFilter;
-    // boxs.scale.set(1.0, textureBox.image.height / textureBox.image.width, 1.0);
+    // textureBox.magFilter = LinearFilter;
   });
-  // textureBox.generateMipmaps = false;
-  textureBox.anisotropy = 16
+  textureBox.anisotropy = 16;
   const mat = new THREE.MeshBasicMaterial({
     map: textureBox
   });
 
   mat.transparent = true;
   let boxs = new THREE.Mesh(boxA, mat);
-  boxs.position.set(res.x, 0, 1.675);
+  boxs.position.set(res.x, 0, res.z);
+  boxs.rotateY(res.rotation);
 
   return boxs;
 });

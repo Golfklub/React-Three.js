@@ -30,7 +30,7 @@ const logoimage = new THREE.TextureLoader().load(
     logoimage.minFilter = LinearFilter;
   }
 );
-logoimage.anisotropy = 16;
+logoimage.anisotropy = renderer.getMaxAnisotropy();
 
 // logoimage.magFilter = THREE.LinearFilter;
 // logoimage.wrapS = THREE.RepeatWrapping;

@@ -10,6 +10,7 @@ import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
+import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
 
@@ -23,7 +24,7 @@ class App extends Component {
   sceneSetup = async () => {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
-      75,
+      80,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
@@ -67,6 +68,9 @@ class App extends Component {
     this.scene.add(logo);
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
     this.scene.add(circleframe);
+    //Add navigate button
+    this.scene.add(leftNavigate);
+    this.scene.add(rightNavigate);
     //Add sky
     this.scene.add(showroomsky);
   };

@@ -11,16 +11,41 @@ import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
-import {
-  Toolbar,
-  exploreWolrdLogo,
-  yarvissWolrdLogo,
-  MyWorldLogo
-} from "./component/toolbar";
+import { Toolbar } from "./component/toolbar";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
+  camera = new THREE.PerspectiveCamera(
+    80,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  scene = new THREE.Scene();
 
   componentDidMount() {
+    navigator.getVRDisplays().then(vrDisplays => {
+      this.camera = new THREE.PerspectiveCamera(
+        80,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      if (vrDisplays.length) {
+        let vrDisplay = vrDisplays[0];
+        this.renderer.vr.enable = true;
+        let controls = new VRControls();
+        controls.enableZoom = false;
+        vrDisplay.requestAnimationFrame(this.animate);
+        console.log("VR!");
+      } else {
+        console.log("DeskTop!");
+        let controls = new OrbitControls(this.camera);
+        // controls.enableZoom = false;
+        controls.target.set(0, 0, 0.0001);
+        requestAnimationFrame(this.animate);
+      }
+    });
     this.sceneSetup();
     this.addCustomSceneObjects();
     this.startAnimationLoop();
@@ -28,20 +53,18 @@ class App extends Component {
   }
 
   sceneSetup = async () => {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      80,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
+    // this.camera = new THREE.PerspectiveCamera(
+    //   80,
+    //   window.innerWidth / window.innerHeight,
+    //   0.1,
+    //   1000
+    // );
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
     this.controls = new OrbitControls(this.camera);
     this.controls.enableZoom = false;
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     console.log(this.renderer.getPixelRatio());
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
@@ -50,24 +73,22 @@ class App extends Component {
     this.mount.appendChild(this.renderer.domElement);
   };
 
-  detectVrDevice = (camera, renderer, animate) => {
-    navigator.getVRDisplays().then(function(vrDisplays) {
-      if (vrDisplays.length) {
-        let vrDisplay = vrDisplays[0];
-        renderer.vr.enable = true;
-        let controls = new VRControls(camera);
-        controls.enableZoom = false;
-        vrDisplay.requestAnimationFrame(animate);
-        console.log("VR!");
-      } else {
-        console.log("DeskTop!");
-        let controls = new OrbitControls(camera);
-        // controls.enableZoom = false;
-        controls.target.set(0, 0, -0.0001);
-        requestAnimationFrame(animate);
-      }
-    });
-  };
+  // navigator.getVRDisplays().then(function(vrDisplays) {
+  //   if (vrDisplays.length) {
+  //     let vrDisplay = vrDisplays[0];
+  //     this.renderer.vr.enable = true;
+  //     let controls = new VRControls();
+  //     controls.enableZoom = false;
+  //     vrDisplay.requestAnimationFrame(animate);
+  //     console.log("VR!");
+  //   } else {
+  //     console.log("DeskTop!");
+  //     let controls = new OrbitControls(this.camera);
+  //     // controls.enableZoom = false;
+  //     controls.target.set(0, 0, -0.0001);
+  //     requestAnimationFrame(animate);
+  //   }
+  // });
 
   addCustomSceneObjects = () => {
     //Add content

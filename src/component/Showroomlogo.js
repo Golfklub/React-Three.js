@@ -4,7 +4,7 @@ import { LinearFilter, NearestFilter } from "three";
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
 const circle = new THREE.BoxGeometry(1, 1, 1);
-circle.scale(0.189, 0.189, 0);
+circle.scale(0.192, 0.192, 0);
 const image = new THREE.TextureLoader().load(
   "https://i.imgur.com/gIjX5R4.png",
   image => {
@@ -17,7 +17,7 @@ const texture = new THREE.MeshBasicMaterial({ map: image });
 
 texture.transparent = true;
 const mesh = new THREE.Mesh(circle, texture);
-mesh.position.set(0, 0, 1.676);
+mesh.position.set(0, 0, 1.54);
 
 export const circleframe = mesh;
 
@@ -39,6 +39,6 @@ logoimage.anisotropy = renderer.getMaxAnisotropy();
 const logotexture = new THREE.MeshBasicMaterial({ map: logoimage });
 logotexture.transparent = true;
 const logobox = new THREE.Mesh(logos, logotexture);
-logobox.position.set(0, 0, 1.674);
+logobox.position.set(0, 0, 1.53);
 
 export const logo = logobox;

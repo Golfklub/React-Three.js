@@ -11,6 +11,12 @@ import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
+import {
+  Toolbar,
+  exploreWolrdLogo,
+  yarvissWolrdLogo,
+  MyWorldLogo
+} from "./component/toolbar";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
 
@@ -36,6 +42,8 @@ class App extends Component {
     // this.controls = new OrbitControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setPixelRatio = window.devicePixelRatio;
+    console.log(window.devicePixelRatio);
     await this.detectVrDevice(this.camera, this.renderer, this.animate);
     // console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -69,8 +77,9 @@ class App extends Component {
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
     this.scene.add(circleframe);
     //Add navigate button
-    this.scene.add(leftNavigate);
-    this.scene.add(rightNavigate);
+    this.scene.add(leftNavigate, rightNavigate);
+    //Add Toolsbar
+    this.scene.add(Toolbar);
     //Add sky
     this.scene.add(showroomsky);
   };

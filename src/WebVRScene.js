@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import * as THREE from "three";
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import OrbitControls from "three-orbitcontrols";
-// import VRControls from "three-vrcontrols-module";
-import { VRControls } from "./resources/controls/VRControls";
+import VRControls from "three-vrcontrols-module";
+// import { VRControls } from "./resources/controls/VRControls";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
@@ -14,13 +14,6 @@ import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
-  camera = new THREE.PerspectiveCamera(
-    80,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
-  renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = new THREE.Scene();
 
   componentDidMount() {
@@ -31,19 +24,22 @@ class App extends Component {
   }
 
   sceneSetup = async () => {
-    // this.camera = new THREE.PerspectiveCamera(
-    //   80,
-    //   window.innerWidth / window.innerHeight,
-    //   0.1,
-    //   1000
-    // );
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(
+      80,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
     this.camera.position.z = 0.001;
-    this.controls = new VRControls(this.camera);
+    // this.controls = new VRControls(this.camera);
     // this.controls.enableZoom = false;
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.vr.enabled = true;
     console.log(this.renderer.getPixelRatio());
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

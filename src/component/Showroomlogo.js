@@ -8,7 +8,7 @@ circle.scale(0.189, 0.189, 0);
 const image = new THREE.TextureLoader().load(
   "https://i.imgur.com/gIjX5R4.png",
   image => {
-    image.minFilter = NearestFilter;
+    image.minFilter = LinearFilter;
   }
 );
 image.anisotropy = renderer.getMaxAnisotropy();
@@ -27,7 +27,7 @@ logos.scale(0.162, 0.162, 0);
 const logoimage = new THREE.TextureLoader().load(
   "https://i.imgur.com/lQbbCMn.png",
   logoimage => {
-    logoimage.minFilter = NearestFilter;
+    logoimage.minFilter = LinearFilter;
   }
 );
 logoimage.anisotropy = 16;

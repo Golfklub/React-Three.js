@@ -42,8 +42,8 @@ class App extends Component {
     this.controls = new OrbitControls(this.camera);
     this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setPixelRatio = 1;
-    console.log(this.renderer.setPixelRatio);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    console.log(this.renderer.getPixelRatio());
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     // console.log(this.renderer.max);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

@@ -51,7 +51,7 @@ class App extends Component {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
-        this.controls = new DeviceOrientationControls(this.camera);
+        this.controls = new OrbitControls(this.camera);
         this.controls.enableZoom = false;
         vrDisplay.requestAnimationFrame(this.animate);
         console.log("VR!");

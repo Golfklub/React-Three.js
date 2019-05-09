@@ -13,6 +13,7 @@ import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
+import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -36,14 +37,29 @@ class App extends Component {
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    this.controls = new OrbitControls(this.camera);
-    this.controls.enableZoom = false;
+    // this.controls = new OrbitControls(this.camera);
+    // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    console.log(this.renderer.getPixelRatio());
-    // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
+
+    navigator.getVRDisplays().then(VRDisplay => {
+      if (VRDisplay.length) {
+        let vrDisplay = VRDisplay[0];
+        this.renderer.vr.enable = true;
+        let controls = new DeviceOrientationControls(this.camera);
+        controls.enableZoom = false;
+        vrDisplay.requestAnimationFrame(this.animate);
+        console.log("VR!");
+      } else {
+        console.log("DeskTop!");
+        let controls = new OrbitControls(this.camera);
+        // controls.enableZoom = false;
+        controls.target.set(0, 0, 0.0001);
+        requestAnimationFrame(this.animate);
+      }
+    });
     document.body.appendChild(WEBVR.createButton(this.renderer));
     // this.renderer.vr.enabled = true;
     this.renderer.setAnimationLoop(() => {

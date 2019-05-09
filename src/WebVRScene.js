@@ -53,15 +53,16 @@ class App extends Component {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
-        this.controls = new OrbitControls(this.camera);
-        this.controls.enableZoom = false;
+        let controls = new OrbitControls(this.camera);
+        // this.controls = new OrbitControls(this.camera);
+        // this.controls.enableZoom = false;
         vrDisplay.requestAnimationFrame(this.animate);
         console.log("VR!");
       } else {
         console.log("DeskTop!");
-        this.controls = new OrbitControls(this.camera);
-        // controls.enableZoom = false;
-        this.controls.target.set(0, 1.6, 0.0001);
+        let controls = new OrbitControls(this.camera);
+        controls.enableZoom = false;
+        controls.target.set(0, 1.6, 0.0001);
         requestAnimationFrame(this.animate);
       }
     });

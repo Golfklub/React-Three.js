@@ -39,7 +39,7 @@ class App extends Component {
     this.camera.position.y = 1.6;
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    // this.controls = new OrbitControls(this.camera);
+    this.controls = new DeviceOrientationControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -49,23 +49,23 @@ class App extends Component {
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));
 
-    navigator.getVRDisplays().then(VRDisplay => {
-      if (VRDisplay.length) {
-        let vrDisplay = VRDisplay[0];
-        this.renderer.vr.enabled = true;
-        let controls = new OrbitControls(this.camera);
-        // this.controls = new OrbitControls(this.camera);
-        // this.controls.enableZoom = false;
-        vrDisplay.requestAnimationFrame(this.animate);
-        console.log("VR!");
-      } else {
-        console.log("DeskTop!");
-        let controls = new OrbitControls(this.camera);
-        controls.enableZoom = false;
-        controls.target.set(0, 1.6, 0.0001);
-        requestAnimationFrame(this.animate);
-      }
-    });
+    // navigator.getVRDisplays().then(VRDisplay => {
+    //   if (VRDisplay.length) {
+    //     let vrDisplay = VRDisplay[0];
+    //     this.renderer.vr.enabled = true;
+    //     let controls = new DeviceOrientationControls(this.camera);
+    //     // this.controls = new OrbitControls(this.camera);
+    //     // this.controls.enableZoom = false;
+    //     vrDisplay.requestAnimationFrame(this.animate);
+    //     console.log("VR!");
+    //   } else {
+    //     console.log("DeskTop!");
+    //     let controls = new OrbitControls(this.camera);
+    //     controls.enableZoom = false;
+    //     controls.target.set(0, 1.6, 0.0001);
+    //     requestAnimationFrame(this.animate);
+    //   }
+    // });
     // this.renderer.vr.enabled = true;
     this.renderer.setAnimationLoop(() => {
       this.renderer.render(this.scene, this.camera);

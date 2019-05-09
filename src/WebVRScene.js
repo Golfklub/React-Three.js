@@ -43,7 +43,7 @@ class App extends Component {
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.vr.enable = true;
+    this.renderer.vr.enabled   = true;
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
@@ -75,6 +75,8 @@ class App extends Component {
   addCustomSceneObjects = () => {
     //Add content
     Content.map(res => this.scene.add(res));
+    this.scene.add(this.camera);
+    this.scene.add(this.controls);
     //Add logo button
     this.scene.add(logo);
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane

@@ -12,6 +12,7 @@ import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
+import {WEBVR} from "./resources/controls/WebVR";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -44,24 +45,8 @@ class App extends Component {
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
+    document.body.appendChild(WEBVR.createButton(this.renderer));
   };
-
-  // navigator.getVRDisplays().then(function(vrDisplays) {
-  //   if (vrDisplays.length) {
-  //     let vrDisplay = vrDisplays[0];
-  //     this.renderer.vr.enable = true;
-  //     let controls = new VRControls();
-  //     controls.enableZoom = false;
-  //     vrDisplay.requestAnimationFrame(animate);
-  //     console.log("VR!");
-  //   } else {
-  //     console.log("DeskTop!");
-  //     let controls = new OrbitControls(this.camera);
-  //     // controls.enableZoom = false;
-  //     controls.target.set(0, 0, -0.0001);
-  //     requestAnimationFrame(animate);
-  //   }
-  // });
 
   addCustomSceneObjects = () => {
     //Add content

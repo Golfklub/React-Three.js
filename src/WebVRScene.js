@@ -35,12 +35,12 @@ class App extends Component {
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     this.camera.position.x = 0;
-    this.camera.position.z = 0.001;
+    this.camera.position.z = -0.001;
     this.controls = new OrbitControls(this.camera);
     this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.vr.enabled = true;
+    // this.renderer.vr.enabled = true;
     console.log(this.renderer.getPixelRatio());
     // await this.detectVrDevice(this.camera, this.renderer, this.animate);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

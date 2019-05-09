@@ -17,7 +17,7 @@ const texture = new THREE.MeshBasicMaterial({ map: image });
 
 texture.transparent = true;
 const mesh = new THREE.Mesh(circle, texture);
-mesh.position.set(0, 0, 1.54);
+mesh.position.set(0, 1.6, 1.54);
 
 export const circleframe = mesh;
 
@@ -39,6 +39,6 @@ logoimage.anisotropy = renderer.getMaxAnisotropy();
 const logotexture = new THREE.MeshBasicMaterial({ map: logoimage });
 logotexture.transparent = true;
 const logobox = new THREE.Mesh(logos, logotexture);
-logobox.position.set(0, 0, 1.53);
+logobox.position.set(0, 1.6, 1.53);
 
 export const logo = logobox;

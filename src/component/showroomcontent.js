@@ -29,7 +29,7 @@ export const Content = ee.map(res => {
   mat.side = THREE.DoubleSide;
   mat.transparent = true;
   let boxs = new THREE.Mesh(boxA, mat);
-  boxs.position.set(res.x, 0, res.z);
+  boxs.position.set(res.x, 1.6, res.z);
   boxs.rotateY(res.rotation);
 
   return boxs;

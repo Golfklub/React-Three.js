@@ -35,6 +35,8 @@ class App extends Component {
     );
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
+    // this.camera.position.set(0, 0, -0.001);
+    this.camera.position.y = 1.6;
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
     // this.controls = new OrbitControls(this.camera);
@@ -59,7 +61,7 @@ class App extends Component {
         console.log("DeskTop!");
         this.controls = new OrbitControls(this.camera);
         // controls.enableZoom = false;
-        this.controls.target.set(0, 0, 0.0001);
+        this.controls.target.set(0, 1.6, 0.0001);
         requestAnimationFrame(this.animate);
       }
     });

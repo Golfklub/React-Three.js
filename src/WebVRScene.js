@@ -12,7 +12,7 @@ import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
-import { WEBVR } from "./resources/controls/WebVR";
+// import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
@@ -43,11 +43,11 @@ class App extends Component {
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.vr.enabled   = true;
+    // this.renderer.vr.enabled   = true;
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
-    document.body.appendChild(WEBVR.createButton(this.renderer));
+    // document.body.appendChild(WEBVR.createButton(this.renderer));
 
     // navigator.getVRDisplays().then(VRDisplay => {
     //   if (VRDisplay.length) {
@@ -67,9 +67,9 @@ class App extends Component {
     //   }
     // });
     // this.renderer.vr.enabled = true;
-    this.renderer.setAnimationLoop(() => {
-      this.renderer.render(this.scene, this.camera);
-    });
+    // this.renderer.setAnimationLoop(() => {
+    //   this.renderer.render(this.scene, this.camera);
+    // });
   };
 
   addCustomSceneObjects = () => {

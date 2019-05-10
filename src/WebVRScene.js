@@ -38,7 +38,7 @@ class App extends Component {
     this.camera.position.z = -0.0001;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-
+    this.renderer.domElement.style.display = "block";
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));

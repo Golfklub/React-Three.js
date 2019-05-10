@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
     "react-scripts": "3.0.0",
     "react-spring-three": "^1.0.4",
     "react-three-fiber": "^2.0.9",

@@ -18,4 +18,5 @@ texture.transparent = true;
 export const Toolbar = new THREE.Mesh(toolbar, texture);
 Toolbar.scale.set(1.5, 0.224, 1);
 Toolbar.position.set(0, -0.985 + 1.6, 1.54);
-Toolbar.rotation.set(-6, 84.825, 0);
+// Toolbar.rotation.set(-6, 84.825, 0);
+Toolbar.rotation.set(0, THREE.Math.degToRad(180), 0);

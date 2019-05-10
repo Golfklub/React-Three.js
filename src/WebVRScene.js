@@ -33,12 +33,12 @@ class App extends Component {
       0.1,
       1000
     );
-    this.raycaster = new THREE.Raycaster();
-    this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
+    // this.raycaster = new THREE.Raycaster();
+    // this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     // this.camera.position.set(0, 0, -0.001);
-    this.camera.position.y = 1.6;
-    this.camera.position.x = 0;
-    this.camera.position.z = -0.001;
+    this.camera.position.y = 0;
+    this.camera.position.x = 1;
+    this.camera.position.z = -0.0001;
     this.controls = new OrbitControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -93,7 +93,7 @@ class App extends Component {
   animate = () => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
-    THREE.DeviceOrientationControls.update();
+    this.controls.update();
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

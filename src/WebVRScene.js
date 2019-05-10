@@ -10,6 +10,7 @@ import { leftNavigate, rightNavigate } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
+import { Interaction } from "three.interaction";
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -37,11 +38,11 @@ class App extends Component {
     this.camera.position.z = -0.0001;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-
+    this.renderer.domElement.style.display = "block";
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));
-
+    this.interaction = new Interaction(this.renderer, this.scene, this.camera);
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
@@ -79,6 +80,12 @@ class App extends Component {
     this.scene.add(circleframe);
     //Add navigate button
     this.scene.add(leftNavigate, rightNavigate);
+    // leftNavigate.on("mouseover", function(ev) {
+    //   leftNavigate.scale.set(1.15, 1.15, 1);
+    // });
+    leftNavigate.on("mouseout", function(ev) {
+      leftNavigate.scale.set(1, 1, 1);
+    });
     //Add Toolsbar
     this.scene.add(Toolbar);
     //Add sky

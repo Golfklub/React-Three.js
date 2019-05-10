@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { LinearFilter } from "three";
+import { Interaction } from "three.interaction";
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -29,7 +30,39 @@ leftTexture.transparent = true;
 leftTexture.side = THREE.DoubleSide;
 
 export const rightNavigate = new THREE.Mesh(Geometry, rightTexture);
-rightNavigate.position.set(-0.1, -0.25+1.6, 0.675);
+rightNavigate.position.set(-0.1, -0.25 + 1.6, 0.675);
 
 export const leftNavigate = new THREE.Mesh(Geometry, leftTexture);
-leftNavigate.position.set(0.1, -0.25+1.6, 0.675);
+leftNavigate.position.set(0.1, -0.25 + 1.6, 0.675);
+
+leftNavigate.on("mouseover", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1);
+});
+
+leftNavigate.on("mouseout", function(ev) {
+  leftNavigate.scale.set(1, 1, 1);
+});
+
+leftNavigate.on("mousedown", function(ev) {
+  leftNavigate.scale.set(0.9, 0.9, 0.9);
+});
+
+leftNavigate.on("mouseup", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1.15);
+});
+
+rightNavigate.on("mouseover", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1);
+});
+
+rightNavigate.on("mouseout", function(ev) {
+  rightNavigate.scale.set(1, 1, 1);
+});
+
+rightNavigate.on("mousedown", function(ev) {
+  rightNavigate.scale.set(0.9, 0.9, 0.9);
+});
+
+rightNavigate.on("mouseup", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1.15);
+});

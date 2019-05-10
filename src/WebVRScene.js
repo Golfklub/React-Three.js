@@ -39,7 +39,8 @@ class App extends Component {
     this.camera.position.y = 1.6;
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
-    this.controls = new DeviceOrientationControls(this.camera);
+    this.controls = new OrbitControls(this.camera);
+    this.scene.add(this.controls);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);

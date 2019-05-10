@@ -9354,6 +9354,11 @@ three-vrcontrols-module@^2.2.1:
   resolved "https://registry.yarnpkg.com/three-vrcontrols-module/-/three-vrcontrols-module-2.2.1.tgz#00bf9bca96b2f0bd44592df60a22df59beaec91f"
   integrity sha512-F5ZH9oxR+QMRTAFZ1IxJvF377dNaoG5uZ4eB7NKPqgcUNmYCtZ2yhfbGD7O8RzQm2J+5wGfGTSV5a+GBkeRdsA==
 
+three.interaction@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/three.interaction/-/three.interaction-0.2.2.tgz#01ce80ba7cacd24ada09dc57f1d64e9dd5d7a0b0"
+  integrity sha512-yWQ5L0SUl+TzxVGFRNZAf4hpRF84zYZVpcyGstzhO0vbRdUDobPiPV6QmUh0JZVS5gEUguAd09ONyNJEczMOyA==
+
 three.meshline@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/three.meshline/-/three.meshline-1.2.0.tgz#89a0c9d67d8062e5649dc0ac9aa16f14e7c199b5"

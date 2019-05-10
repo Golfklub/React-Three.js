@@ -33,13 +33,13 @@ class App extends Component {
       0.1,
       1000
     );
-    // this.raycaster = new THREE.Raycaster();
-    // this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
-    // this.camera.position.set(0, 0, -0.001);
-    this.camera.position.y = 0;
-    this.camera.position.x = 1;
-    this.camera.position.z = -0.0001;
-    this.controls = new OrbitControls(this.camera);
+    this.raycaster = new THREE.Raycaster();
+    this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
+    this.camera.position.set(1.6, 0, -0.001);
+    // this.camera.position.y = 0;
+    // this.camera.position.x = 1;
+    // this.camera.position.z = -0.0001;
+    this.controls = new DeviceOrientationControls(this.camera);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);

@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import * as THREE from "three";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import OrbitControls from "three-orbitcontrols";
-import VRControls from "three-vrcontrols-module";
-// import { VRControls } from "./resources/controls/VRControls";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";

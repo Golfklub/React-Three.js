@@ -1,6 +1,5 @@
-import React from "react";
 import * as THREE from "three";
-import { NearestFilter, LinearFilter } from "three";
+import {  LinearFilter } from "three";
 
 const ee = [
   { x: -0.5, src: "https://i.imgur.com/IzIdIpm.png", z: 1.474, rotation: -85 },

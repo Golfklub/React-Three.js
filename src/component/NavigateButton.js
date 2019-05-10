@@ -9,14 +9,14 @@ const rightImage = new THREE.TextureLoader().load(
   "https://i.imgur.com/IteMGV0.png",
   rightImage => {
     rightImage.minFilter = LinearFilter;
-    rightImage.anisotropy = renderer.getMaxAnisotropy();
+    rightImage.anisotropy = renderer.capabilities.getMaxAnisotropy();
   }
 );
 const leftImage = new THREE.TextureLoader().load(
   "https://i.imgur.com/RCSuY4o.png",
   leftImage => {
     leftImage.minFilter = LinearFilter;
-    leftImage.anisotropy = renderer.getMaxAnisotropy();
+    leftImage.anisotropy = renderer.capabilities.getMaxAnisotropy();
   }
 );
 

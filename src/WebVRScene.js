@@ -93,7 +93,7 @@ class App extends Component {
   animate = () => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
-    THREE.DeviceOrientationControls.update();g
+    THREE.DeviceOrientationControls.update();
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

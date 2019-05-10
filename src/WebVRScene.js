@@ -40,7 +40,6 @@ class App extends Component {
     this.camera.position.x = 0;
     this.camera.position.z = -0.001;
     this.controls = new OrbitControls(this.camera);
-    this.scene.add(this.controls);
     // this.controls.enableZoom = false;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -74,6 +73,7 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
+    this.scene.add(this.controls);
     //Add content
     Content.map(res => this.scene.add(res));
     this.scene.add(this.camera);
@@ -93,6 +93,7 @@ class App extends Component {
   animate = () => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
+    THREE.DeviceOrientationControls.update();g
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

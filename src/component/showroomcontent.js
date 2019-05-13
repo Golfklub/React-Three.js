@@ -37,16 +37,13 @@ const ee = [
   ]
 ]; //แก้ไขlayout ปรับค่า z แล้วหมุนแกนเอา
 // const renderer = new THREE.WebGLRenderer({ antialias: true });
+export const boxA = new THREE.PlaneBufferGeometry(1, 1, 1);
+boxA.scale(0.7, 0.7, 1);
 
 export const Content = ee[0].map(res => {
-  const boxA = new THREE.PlaneBufferGeometry(1, 1, 1);
-
-  boxA.scale(0.7, 0.7, 1);
-
   const textureBox = new THREE.TextureLoader().load(res.src, textureBox => {
     textureBox.needsUpdate = true;
     textureBox.minFilter = LinearFilter;
-    // textureBox.magFilter = LinearFilter;
   });
   textureBox.anisotropy = 16;
   const mat = new THREE.MeshBasicMaterial({
@@ -57,6 +54,5 @@ export const Content = ee[0].map(res => {
   let boxs = new THREE.Mesh(boxA, mat);
   boxs.position.set(res.x, 1.6, res.z);
   boxs.rotateY(res.rotation);
-
   return boxs;
 });

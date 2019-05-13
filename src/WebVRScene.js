@@ -11,6 +11,8 @@ import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 import { Interaction } from "three.interaction";
+var TWEEN = require("@tweenjs/tween.js");
+
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -92,10 +94,11 @@ class App extends Component {
     this.scene.add(showroomsky);
   };
 
-  animate = () => {
+  animate = time => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
+    TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

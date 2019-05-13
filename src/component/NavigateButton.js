@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { LinearFilter } from "three";
 import { Interaction } from "three.interaction";
+import { boxA } from "./showroomcontent";
+import { Content } from "./showroomcontent";
+var TWEEN = require("@tweenjs/tween.js");
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -35,6 +38,8 @@ rightNavigate.position.set(-0.1, -0.25 + 1.6, 0.675);
 export const leftNavigate = new THREE.Mesh(Geometry, leftTexture);
 leftNavigate.position.set(0.1, -0.25 + 1.6, 0.675);
 
+const time = new THREE.Clock();
+
 leftNavigate.on("mouseover", function(ev) {
   leftNavigate.scale.set(1.15, 1.15, 1);
 });
@@ -45,10 +50,30 @@ leftNavigate.on("mouseout", function(ev) {
 
 leftNavigate.on("mousedown", function(ev) {
   leftNavigate.scale.set(0.9, 0.9, 0.9);
+
+  Content.map(res => {
+    var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
+      .to({ x: 0, y: 0, z: 0 }, 1000) // Move to (300, 200) in 1 second.
+      .easing(TWEEN.Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+      .onUpdate(function() {
+        console.log(res.scale);
+      })
+      .start(); // Start the tween immediately.
+  });
 });
 
 leftNavigate.on("mouseup", function(ev) {
   leftNavigate.scale.set(1.15, 1.15, 1.15);
+
+  Content.map(res => {
+    var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
+      .to({ x: 1, y: 1, z: 1 }, 1000) // Move to (300, 200) in 1 second.
+      .easing(TWEEN.Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+      .onUpdate(function() {
+        console.log(res.scale);
+      })
+      .start(); // Start the tween immediately.
+  });
 });
 
 rightNavigate.on("mouseover", function(ev) {

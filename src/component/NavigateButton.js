@@ -66,9 +66,9 @@ leftNavigate.on("mouseup", function(ev) {
   leftNavigate.scale.set(1.15, 1.15, 1.15);
 
   Content.map(res => {
-    var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
-      .to({ x: 1, y: 1, z: 1 }, 1000) // Move to (300, 200) in 1 second.
-      .easing(TWEEN.Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+    var tween = new TWEEN.Tween(res.scale) // ใส่ค่าที่ต้องการจะเปลี่ยนในนี้
+      .to({ x: 1, y: 1, z: 1 }, 1000) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
+      .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
       .onUpdate(function() {
         console.log(res.scale);
       })

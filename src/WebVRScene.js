@@ -98,7 +98,7 @@ class App extends Component {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    TWEEN.update(time);
+    TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

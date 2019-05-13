@@ -26,7 +26,9 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    document.body.appendChild(Recenter(this.renderer, this.state.controls));
+    document.body.appendChild(
+      Recenter(this.renderer, this.state.controls, this.camera)
+    );
   }
 
   sceneSetup = async () => {

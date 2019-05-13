@@ -11,16 +11,22 @@ import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 import { Interaction } from "three.interaction";
+import { Recenter } from "./component/Recenter";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
+  state = { controls: "" };
 
   componentDidMount() {
     this.sceneSetup();
     this.addCustomSceneObjects();
     window.addEventListener("resize", this.handleWindowResize);
+  }
+
+  componentDidUpdate() {
+    document.body.appendChild(Recenter(this.renderer, this.state.controls));
   }
 
   sceneSetup = async () => {
@@ -45,6 +51,9 @@ class App extends Component {
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
+
+    // document.body.appendChild(Recenter(this.renderer, this.state.controls));
+
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
@@ -58,10 +67,9 @@ class App extends Component {
         this.renderer.vr.enabled = true;
       } else {
         console.log("DeskTop!");
-        let controls = new OrbitControls(this.camera);
+        let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls });
         controls.enableZoom = false;
-        // this.camera.position.set(0, 1.6, -0.0001);
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
         this.startAnimationLoop();

@@ -3,7 +3,7 @@ export const Recenter = (renderer, controls, camera) => {
     button.style.display = "";
 
     button.style.cursor = "pointer";
-    button.style.left = "calc(5% - 50px)";
+    button.style.left = "calc(1%)";
     button.style.width = "100px";
 
     button.textContent = "RECENTER";
@@ -15,7 +15,7 @@ export const Recenter = (renderer, controls, camera) => {
       button.style.opacity = "0.5";
     };
 
-    button.onclick = function() {
+    button.onclick = async () => {
       //   controls.target.set(0, 1.6, -0.0001);
       //   console.log(controls.target);
       camera.position.set(1.2246467992175396e-20, 1.6, -0.00010000000002024652);
@@ -25,8 +25,19 @@ export const Recenter = (renderer, controls, camera) => {
         1.6,
         -0.00010000000002024652
       );
-      console.log(camera.position);
-      console.log(controls.object.position);
+      // console.log(camera.position);
+      controls.object.quaternion.set(
+        0.00021319847924755608,
+        -0.9997868015207526,
+        0.014599761150644397,
+        -0.014599761150644399
+      );
+      controls.object.rotation.set(
+        0.029203673205103454,
+        3.1123889803846896,
+        2.7452862802809213e-1
+      );
+      console.log(controls.object);
     };
 
     renderer.vr.setDevice(device);

@@ -40,7 +40,7 @@ var DeviceOrientationControls = function(object) {
 
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us
-
+      // console.log(euler);
       quaternion.setFromEuler(euler); // orient the device
 
       quaternion.multiply(q1); // camera looks out the back of the device, not the top
@@ -98,7 +98,6 @@ var DeviceOrientationControls = function(object) {
       var orient = scope.screenOrientation
         ? THREE.Math.degToRad(scope.screenOrientation)
         : 0; // O
-
       setObjectQuaternion(scope.object.quaternion, alpha, beta, gamma, orient);
     }
   };

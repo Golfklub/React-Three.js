@@ -26,7 +26,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.camera);
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.camera)
     );
@@ -66,7 +65,6 @@ class App extends Component {
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
         console.log("VR!");
-        // controls.target.set(0, 1.6, 0.0001);
         this.renderer.vr.enabled = true;
       } else {
         console.log("DeskTop!");

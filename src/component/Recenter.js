@@ -18,7 +18,7 @@ export const Recenter = (renderer, controls, camera) => {
     };
 
     button.onclick = function() {
-      console.log(controls.object.quaternion, controls.object.rotation);
+      // console.log(controls.object.quaternion, controls.object.rotation);
       camera.position.set(0, 1.6, -0.001);
       controls.object.position.set(
         1.2246467992175396e-20,

@@ -18,13 +18,13 @@ export const Recenter = (renderer, controls, camera) => {
     };
 
     button.onclick = function() {
-      console.log(controls);
+      console.log(controls.object.quaternion, controls.object.rotation);
       controls.object.position.set(
         1.2246467992175396e-20,
         1.6,
         0.00010000000002024652
       );
-      console.log(controls);
+      console.log(controls.object.quaternion, controls.object.rotation);
     };
 
     renderer.vr.setDevice(device);

@@ -25,8 +25,9 @@ export const Recenter = (renderer, controls, camera) => {
         1.6,
         0.00010000000002024652
       );
-      console.log(camera.position);
-      console.log(controls.object.position);
+      // console.log(camera.position);
+      // console.log(controls.object.position);
+      console.log(camera);
     };
 
     renderer.vr.setDevice(device);

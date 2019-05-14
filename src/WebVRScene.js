@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.camera);
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.camera)
     );
@@ -65,12 +66,7 @@ class App extends Component {
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
         console.log("VR!");
-        // controls.target.set(0, 1.6, -0.0001);
-        this.camera.position.set(
-          1.2246467992175396e-20,
-          1.6,
-          -0.00010000000002024652
-        );
+        // controls.target.set(0, 1.6, 0.0001);
         this.renderer.vr.enabled = true;
       } else {
         console.log("DeskTop!");
@@ -97,12 +93,6 @@ class App extends Component {
     this.scene.add(circleframe);
     //Add navigate button
     this.scene.add(leftNavigate, rightNavigate);
-    // leftNavigate.on("mouseover", function(ev) {
-    //   leftNavigate.scale.set(1.15, 1.15, 1);
-    // });
-    leftNavigate.on("mouseout", function(ev) {
-      leftNavigate.scale.set(1, 1, 1);
-    });
     //Add Toolsbar
     this.scene.add(Toolbar);
     //Add sky

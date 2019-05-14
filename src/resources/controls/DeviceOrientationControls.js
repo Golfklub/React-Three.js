@@ -46,7 +46,7 @@ export const DeviceOrientationControls = function(object) {
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us
 
-      // quaternion.setFromEuler(euler); // orient the device
+      quaternion.setFromEuler(euler); // orient the device
 
       quaternion.multiply(q1); // camera looks out the back of the device, not the top
       // eslint-disable-next-line no-unused-expressions

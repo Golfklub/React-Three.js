@@ -18,12 +18,12 @@ export const Recenter = (renderer, controls, camera) => {
     button.onclick = function() {
       //   controls.target.set(0, 1.6, -0.0001);
       //   console.log(controls.target);
-      camera.position.set(1.2246467992175396e-20, 1.6, -0.00010000000002024652);
+      camera.position.set(1.2246467992175396e-20, 1.6, 0.00010000000002024652);
 
       controls.object.position.set(
         1.2246467992175396e-20,
         1.6,
-        -0.00010000000002024652
+        0.00010000000002024652
       );
       console.log(camera.position);
       console.log(controls.object.position);

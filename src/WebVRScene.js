@@ -42,14 +42,14 @@ class App extends Component {
     this.raycaster = new THREE.Raycaster();
     this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
 
-    // this.controls = new OrbitControls(this.camera);
-    // this.controls.target.set(0, 1.6, -0.0001);
     this.camera.position.y = 1.6;
-    this.camera.position.z = -0.0001;
+    this.camera.position.z = 0.0001;
+
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.domElement.style.display = "block";
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
@@ -77,7 +77,7 @@ class App extends Component {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls });
         controls.enableZoom = false;
-        controls.target.set(0, 1.6, -0.0001);
+        controls.target.set(0, 1.6, 0.0001);
         requestAnimationFrame(this.animate);
         this.startAnimationLoop();
       }

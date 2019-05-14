@@ -33,10 +33,10 @@ leftTexture.transparent = true;
 leftTexture.side = THREE.DoubleSide;
 
 export const rightNavigate = new THREE.Mesh(Geometry, rightTexture);
-rightNavigate.position.set(-0.1, -0.25 + 1.6, 0.675);
+rightNavigate.position.set(-0.1, -0.25 + 1.6, -0.675);
 
 export const leftNavigate = new THREE.Mesh(Geometry, leftTexture);
-leftNavigate.position.set(0.1, -0.25 + 1.6, 0.675);
+leftNavigate.position.set(0.1, -0.25 + 1.6, -0.675);
 
 const time = new THREE.Clock();
 

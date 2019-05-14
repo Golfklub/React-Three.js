@@ -18,7 +18,7 @@ texture.side = DoubleSide;
 
 texture.transparent = true;
 const mesh = new THREE.Mesh(circle, texture);
-mesh.position.set(0, 1.6, 1.54);
+mesh.position.set(0, 1.6, -1.54);
 
 export const circleframe = mesh;
 
@@ -33,15 +33,9 @@ const logoimage = new THREE.TextureLoader().load(
 );
 logoimage.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-// logoimage.magFilter = THREE.LinearFilter;
-// logoimage.wrapS = THREE.RepeatWrapping;
-// logoimage.wrapT = THREE.RepeatWrapping;
-
 const logotexture = new THREE.MeshBasicMaterial({ map: logoimage });
-logotexture.side = DoubleSide;
 logotexture.transparent = true;
 const logobox = new THREE.Mesh(logos, logotexture);
-logobox.position.set(0, 1.6, 1.53);
-logobox.rotation.set(0, 84.825, 0);
+logobox.position.set(0, 1.6, -1.53);
 
 export const logo = logobox;

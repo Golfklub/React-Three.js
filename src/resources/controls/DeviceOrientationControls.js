@@ -6,7 +6,7 @@ import * as THREE from "three";
  * W3C Device Orientation control (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
  */
 
-var DeviceOrientationControls = function(object) {
+export const DeviceOrientationControls = function(object) {
   var scope = this;
 
   this.object = object;
@@ -32,18 +32,18 @@ var DeviceOrientationControls = function(object) {
   var setObjectQuaternion = (function() {
     var zee = new THREE.Vector3(0, 0, 1);
 
-    var euler = new THREE.Euler(0, 1.6, -0.0001);
+    var euler = new THREE.Euler();
 
     var q0 = new THREE.Quaternion();
 
-    var q1 = new THREE.Quaternion(-Math.sqrt(0.25), 0, 0, Math.sqrt(0.5)); // - PI/2 around the x-axis
+    var q1 = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)); // - PI/2 around the x-axis
 
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us
 
       quaternion.setFromEuler(euler); // orient the device
 
-      // quaternion.multiply(q1); // camera looks out the back of the device, not the top
+      quaternion.multiply(q1); // camera looks out the back of the device, not the top
 
       quaternion.multiply(q0.setFromAxisAngle(zee, -orient)); // adjust for screen orientation
     };
@@ -109,5 +109,3 @@ var DeviceOrientationControls = function(object) {
 
   this.connect();
 };
-
-export { DeviceOrientationControls };

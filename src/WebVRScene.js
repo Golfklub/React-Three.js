@@ -65,7 +65,8 @@ class App extends Component {
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
         console.log("VR!");
-        this.camera.position.set(0, 0, -0.0001);
+        // controls.target.set(0, 1.6, -0.0001);
+        this.camera.position.set(1, 1.6, -0.0001);
         this.renderer.vr.enabled = true;
       } else {
         console.log("DeskTop!");

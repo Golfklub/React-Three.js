@@ -36,7 +36,7 @@ export const DeviceOrientationControls = function(object) {
 
     var q0 = new THREE.Quaternion();
 
-    var q1 = new THREE.Quaternion(-Math.sqrt(0.001), 0, 0, Math.sqrt(0.001)); // - PI/2 around the x-axis
+    var q1 = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)); // - PI/2 around the x-axis
 
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us

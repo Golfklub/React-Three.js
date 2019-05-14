@@ -66,7 +66,11 @@ class App extends Component {
         this.startAnimationLoop();
         console.log("VR!");
         // controls.target.set(0, 1.6, -0.0001);
-        this.camera.position.set(1, 1.6, -0.0001);
+        this.camera.position.set(
+          1.2246467992175396e-20,
+          1.6,
+          -0.00010000000002024652
+        );
         this.renderer.vr.enabled = true;
       } else {
         console.log("DeskTop!");

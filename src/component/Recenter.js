@@ -26,12 +26,15 @@ export const Recenter = (renderer, controls, type) => {
           0.00010000000002024652
         );
       } else if (type === "vr") {
-        showroomsky.rotation.set(
-          controls.object.rotation.x,
-          controls.object.rotation.y,
-          0,
-          "XYZ"
-        );
+        // showroomsky.rotation.set(
+        //   controls.object.rotation.x,
+        //   controls.object.rotation.y,
+        //   0,
+        //   "XYZ"
+        // );
+        showroomsky.rotateX(controls.object.rotation.x);
+        showroomsky.rotateY(controls.object.rotation.y);
+        // showroomsky.rotateZ(controls.object.rotation.y);
       }
     };
     renderer.vr.setDevice(device);

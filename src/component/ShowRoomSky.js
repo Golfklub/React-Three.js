@@ -11,5 +11,7 @@ texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 const skytexture = new THREE.MeshBasicMaterial({ map: texture });
 const spheres = new THREE.Mesh(sphere, skytexture);
 spheres.material.side = THREE.DoubleSide;
+spheres.position.set(0, 0, 0);
+spheres.rotation.set(0, 0, 0);
 
 export const showroomsky = spheres;

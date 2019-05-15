@@ -60,7 +60,7 @@ class App extends Component {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
-        let controls = new DeviceOrientationControls(this.camera);
+        let controls = new DeviceOrientationControls(this.camera , this.renderer.domElement);
         this.setState({ controls: controls });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
@@ -83,18 +83,16 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     //Add content
-    Content.map(res => this.scene.add(res));
-    // this.scene.add(this.camera);
+    Content.map(res => this.scene.add(showroomsky.add(res)));
     //Add logo button
-    this.scene.add(logo);
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
-    this.scene.add(circleframe);
     //Add navigate button
-    this.scene.add(leftNavigate, rightNavigate);
     //Add Toolsbar
     this.scene.add(Toolbar);
     //Add sky
-    this.scene.add(showroomsky);
+    this.scene.add(
+      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
+    );
   };
 
   animate = time => {

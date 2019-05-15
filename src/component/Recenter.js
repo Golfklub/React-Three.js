@@ -1,4 +1,4 @@
-// import * as THREE from "three";
+import * as THREE from "three";
 
 export const Recenter = (renderer, controls, camera) => {
   function showRecenter(device) {
@@ -25,16 +25,24 @@ export const Recenter = (renderer, controls, camera) => {
         1.6,
         0.00010000000002024652
       );
-      controls.object.quaternion.set(
-        -0.06637673430891709,
-        -0.057421196119637904,
-        0.06157714325346281,
-        0.9942359834603733
-      );
+      camera.rotation.set(0, 0, 0);
+      controls.object.rotation.set(0, 0, 0);
+      console.log(controls.object.rotation);
+      console.log(camera.rotation);
 
-      console.log(controls.object.quaternion, controls.object.rotation);
+      // controls.object.quaternion.set(
+      //   -0.06637673430891709,
+      //   -0.057421196119637904,
+      //   0.06157714325346281,
+      //   0.9942359834603733
+      // );
+      // camera.quaternion.set(
+      //   -0.06637673430891709,
+      //   -0.057421196119637904,
+      //   0.06157714325346281,
+      //   0.9942359834603733
+      // );
     };
-
     renderer.vr.setDevice(device);
   }
 

@@ -106,7 +106,10 @@ class App extends Component {
     this.setState({
       rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
       rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180
+      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
+      skyX: (showroomsky.rotation.x / Math.PI) * 180,
+      skyy: (showroomsky.rotation.y / Math.PI) * 180,
+      skyz: (showroomsky.rotation.z / Math.PI) * 180
     });
     this.gg = (this.state.controls.object.rotation.y / Math.PI) * 180;
   };
@@ -126,6 +129,9 @@ class App extends Component {
         <div style={{ color: "red" }}>{this.state.rotationx}</div>
         <div style={{ color: "red" }}>{this.state.rotationy}</div>
         <div style={{ color: "red" }}>{this.state.rotationz}</div>
+        <div style={{ color: "red" }}>{this.state.skyX}</div>
+        <div style={{ color: "red" }}>{this.state.skyy}</div>
+        <div style={{ color: "red" }}>{this.state.skyz}</div>
       </div>
     );
   }

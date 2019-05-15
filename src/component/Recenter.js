@@ -30,7 +30,7 @@ export const Recenter = (renderer, controls, camera) => {
         // controls.object.rotation.x,
         // -controls.object.rotation.x,
         0,
-        -controls.object.rotation.y,
+        controls.object.rotation.y,
         0,
         "XYZ"
       );

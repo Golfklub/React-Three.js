@@ -3,7 +3,7 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky, e } from "./component/ShowRoomSky";
+import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
@@ -80,7 +80,7 @@ class App extends Component {
   addCustomSceneObjects = () => {
     Content.map(res => this.scene.add(showroomsky.add(res)));
     this.scene.add(
-      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo,e)
+      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
     );
   };
 
@@ -88,14 +88,14 @@ class App extends Component {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    this.setState({
-      rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-      rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
-      skyX: (showroomsky.rotation.x / Math.PI) * 180,
-      skyy: (showroomsky.rotation.y / Math.PI) * 180,
-      skyz: (showroomsky.rotation.z / Math.PI) * 180
-    });
+    // this.setState({
+    //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
+    //   rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
+    //   rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
+    //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
+    //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
+    //   skyz: (showroomsky.rotation.z / Math.PI) * 180
+    // });
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 
@@ -112,12 +112,12 @@ class App extends Component {
     const css = { color: "red", display: "block", position: "absolute" };
     return (
       <div ref={ref => (this.mount = ref)}>
-        <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>
+        {/* <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>
         <div style={{ ...css, top: "15px" }}>{this.state.rotationy}</div>
         <div style={{ ...css, top: "30px" }}>{this.state.rotationz}</div>
         <div style={{ ...css, top: "45px" }}>{this.state.skyX}</div>
         <div style={{ ...css, top: "60px" }}>{this.state.skyy}</div>
-        <div style={{ ...css, top: "75px" }}>{this.state.skyz}</div>
+        <div style={{ ...css, top: "75px" }}>{this.state.skyz}</div> */}
       </div>
     );
   }

@@ -97,13 +97,14 @@ class App extends Component {
       showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
     );
   };
-
+  gg = 0;
   animate = time => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    console.log((this.state.controls.object.rotation.y / Math.PI) * 180);
+
+    this.gg = (this.state.controls.object.rotation.y / Math.PI) * 180;
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();
@@ -116,7 +117,11 @@ class App extends Component {
   };
 
   render() {
-    return <div ref={ref => (this.mount = ref)} />;
+    return (
+      <div ref={ref => (this.mount = ref)}>
+        <div style={{ color: "red" }}>{this.gg}</div>
+      </div>
+    );
   }
 }
 

@@ -27,11 +27,11 @@ export const Recenter = (renderer, controls, type) => {
         );
       } else if (type === "vr") {
         showroomsky.rotation.set(
-          // controls.object.rotation.x,
-          THREE.Math.degToRad(controls.object.rotation.x),
+          controls.object.rotation.x,
+          // THREE.Math.degToRad(controls.object.rotation.x),
           // 0,
           controls.object.rotation.y,
-          0,
+          controls.object.rotation.z,
           "XYZ"
         );
         // showroomsky.rotateX(controls.object.rotation.x);

@@ -78,13 +78,7 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    //Add content
     Content.map(res => this.scene.add(showroomsky.add(res)));
-    //Add logo button
-    //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
-    //Add navigate button
-    //Add Toolsbar
-    //Add sky
     this.scene.add(
       showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
     );

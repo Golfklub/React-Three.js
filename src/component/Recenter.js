@@ -6,8 +6,8 @@ export const Recenter = (renderer, controls, type) => {
     button.style.display = "";
 
     button.style.cursor = "pointer";
-    button.style.left = "calc(5% - 50px)";
-    button.style.width = "100px";
+    button.style.left = "1%";
+    // button.style.width = "100px";
 
     button.textContent = "RECENTER";
 

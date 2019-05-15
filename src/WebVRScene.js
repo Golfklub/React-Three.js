@@ -3,7 +3,7 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky } from "./component/ShowRoomSky";
+import { showroomsky, e } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import { leftNavigate, rightNavigate } from "./component/NavigateButton";
@@ -80,7 +80,7 @@ class App extends Component {
   addCustomSceneObjects = () => {
     Content.map(res => this.scene.add(showroomsky.add(res)));
     this.scene.add(
-      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
+      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo,e)
     );
   };
 

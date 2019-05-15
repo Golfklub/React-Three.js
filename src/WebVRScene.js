@@ -54,8 +54,6 @@ class App extends Component {
     document.body.appendChild(WEBVR.createButton(this.renderer));
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
 
-    // document.body.appendChild(Recenter(this.renderer, this.state.controls));
-
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
@@ -86,7 +84,6 @@ class App extends Component {
     //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
     //Add navigate button
     //Add Toolsbar
-    this.scene.add(Toolbar);
     //Add sky
     this.scene.add(
       showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)

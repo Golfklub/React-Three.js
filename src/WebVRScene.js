@@ -29,6 +29,12 @@ class App extends Component {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
+    showroomsky.rotation.set(
+      0,
+      this.state.controls.object.rotation.y,
+      0,
+      "XYZ"
+    );
   }
 
   sceneSetup = async () => {
@@ -89,12 +95,6 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    showroomsky.rotation.set(
-      0,
-      this.state.controls.object.rotation.y,
-      0,
-      "XYZ"
-    );
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

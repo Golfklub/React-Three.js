@@ -36,7 +36,12 @@ export const DeviceOrientationControls = function(object) {
 
     var q0 = new THREE.Quaternion();
 
-    var q1 = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)); // - PI/2 around the x-axis
+    var q1 = new THREE.Quaternion(
+      -0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    );
 
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us
@@ -44,7 +49,7 @@ export const DeviceOrientationControls = function(object) {
       quaternion.setFromEuler(euler); // orient the device
 
       quaternion.multiply(q1); // camera looks out the back of the device, not the top
-
+      // eslint-disable-next-line no-unused-expressions
       quaternion.multiply(q0.setFromAxisAngle(zee, -orient)); // adjust for screen orientation
     };
   })();
@@ -62,7 +67,7 @@ export const DeviceOrientationControls = function(object) {
       onDeviceOrientationChangeEvent,
       false
     );
-
+    console.log("connect!");
     scope.enabled = true;
   };
 
@@ -77,7 +82,7 @@ export const DeviceOrientationControls = function(object) {
       onDeviceOrientationChangeEvent,
       false
     );
-
+    console.log("disconnect");
     scope.enabled = false;
   };
 

@@ -17,7 +17,7 @@ var TWEEN = require("@tweenjs/tween.js");
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
-  state = { controls: "" };
+  state = { controls: "", device: "" };
 
   componentDidMount() {
     this.sceneSetup();
@@ -27,7 +27,7 @@ class App extends Component {
 
   componentDidUpdate() {
     document.body.appendChild(
-      Recenter(this.renderer, this.state.controls, this.camera)
+      Recenter(this.renderer, this.state.controls, this.state.device)
     );
   }
 
@@ -54,28 +54,18 @@ class App extends Component {
     document.body.appendChild(WEBVR.createButton(this.renderer));
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
 
-    // document.body.appendChild(Recenter(this.renderer, this.state.controls));
-
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
         let controls = new DeviceOrientationControls(this.camera);
-        this.setState({ controls: controls });
+        this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        console.log("VR!");
-        // controls.target.set(0, 1.6, -0.0001);
-        this.camera.position.set(
-          1.2246467992175396e-20,
-          1.6,
-          -0.00010000000002024652
-        );
         this.renderer.vr.enabled = true;
       } else {
-        console.log("DeskTop!");
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.setState({ controls: controls });
+        this.setState({ controls: controls, device: "desktop" });
         controls.enableZoom = false;
         controls.target.set(0, 1.6, 0.0001);
         requestAnimationFrame(this.animate);
@@ -88,25 +78,10 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    //Add content
-    Content.map(res => this.scene.add(res));
-    // this.scene.add(this.camera);
-    //Add logo button
-    this.scene.add(logo);
-    //Add circle showroom button // this.scene.add(curvedplane); //Add curved plane
-    this.scene.add(circleframe);
-    //Add navigate button
-    this.scene.add(leftNavigate, rightNavigate);
-    // leftNavigate.on("mouseover", function(ev) {
-    //   leftNavigate.scale.set(1.15, 1.15, 1);
-    // });
-    leftNavigate.on("mouseout", function(ev) {
-      leftNavigate.scale.set(1, 1, 1);
-    });
-    //Add Toolsbar
-    this.scene.add(Toolbar);
-    //Add sky
-    this.scene.add(showroomsky);
+    Content.map(res => this.scene.add(showroomsky.add(res)));
+    this.scene.add(
+      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
+    );
   };
 
   animate = time => {

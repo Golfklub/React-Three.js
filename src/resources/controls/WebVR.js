@@ -15,8 +15,8 @@ export const WEBVR = {
       button.style.display = "";
 
       button.style.cursor = "pointer";
-      button.style.left = "calc(93% - 50px)";
-      button.style.width = "100px";
+      button.style.right = "1%";
+      // button.style.width = "100px";
 
       button.textContent = "ENTER VR";
 
@@ -62,8 +62,8 @@ export const WEBVR = {
       button.style.display = "";
 
       button.style.cursor = "pointer";
-      button.style.left = "calc(93% - 50px)";
-      button.style.width = "100px";
+      button.style.right = "1";
+      // button.style.width = "5wh";
 
       button.textContent = "ENTER VR";
 
@@ -94,11 +94,9 @@ export const WEBVR = {
       button.style.display = "";
 
       button.style.cursor = "auto";
-      button.style.left = "calc(93% - 75px)";
-      button.style.width = "150px";
-
+      button.style.right = "1%";
+      // button.style.width = "10%";
       button.textContent = "VR NOT FOUND";
-
       button.onmouseenter = null;
       button.onmouseleave = null;
 
@@ -201,8 +199,8 @@ export const WEBVR = {
       message.href = "https://webvr.info";
       message.innerHTML = "WEBVR NOT SUPPORTED";
 
-      message.style.left = "calc(93% - 90px)";
-      message.style.width = "180px";
+      message.style.right = "1%";
+      // message.style.width = "180px";
       message.style.textDecoration = "none";
 
       stylizeElement(message);

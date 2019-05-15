@@ -1,10 +1,13 @@
-export const Recenter = (renderer, controls, camera) => {
+import * as THREE from "three";
+import { showroomsky } from "./ShowRoomSky";
+
+export const Recenter = (renderer, controls, type) => {
   function showRecenter(device) {
     button.style.display = "";
 
     button.style.cursor = "pointer";
-    button.style.left = "calc(5% - 50px)";
-    button.style.width = "100px";
+    button.style.left = "1%";
+    // button.style.width = "100px";
 
     button.textContent = "RECENTER";
 
@@ -16,19 +19,16 @@ export const Recenter = (renderer, controls, camera) => {
     };
 
     button.onclick = function() {
-      //   controls.target.set(0, 1.6, -0.0001);
-      //   console.log(controls.target);
-      camera.position.set(1.2246467992175396e-20, 1.6, 0.00010000000002024652);
-
-      controls.object.position.set(
-        1.2246467992175396e-20,
-        1.6,
-        0.00010000000002024652
-      );
-      console.log(camera.position);
-      console.log(controls.object.position);
+      if (type === "desktop") {
+        controls.object.position.set(
+          1.2246467992175396e-20,
+          1.6,
+          0.00010000000002024652
+        );
+      } else if (type === "vr") {
+        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+      }
     };
-
     renderer.vr.setDevice(device);
   }
 

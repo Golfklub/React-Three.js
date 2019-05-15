@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { rotationY } from "./../RotationY";
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -12,6 +13,7 @@ const skytexture = new THREE.MeshBasicMaterial({ map: texture });
 const spheres = new THREE.Mesh(sphere, skytexture);
 spheres.material.side = THREE.DoubleSide;
 spheres.position.set(0, 0, 0);
+console.log(rotationY);
 spheres.rotation.set(0, 0, 0);
 
 export const showroomsky = spheres;

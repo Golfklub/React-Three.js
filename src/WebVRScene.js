@@ -12,6 +12,7 @@ import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
+import { rotationY } from "./RotationY";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
@@ -28,12 +29,6 @@ class App extends Component {
   componentDidUpdate() {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
-    );
-    showroomsky.rotation.set(
-      0,
-      this.state.controls.object.rotation.y,
-      0,
-      "XYZ"
     );
   }
 
@@ -95,6 +90,7 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    rotationY(this.state.controls.object.rotation.y);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

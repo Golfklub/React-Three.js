@@ -41,7 +41,7 @@ export const DeviceOrientationControls = function(object) {
       0,
       0,
       0.7071067811865476
-    ); // - PI/2 around the x-axis
+    );
 
     return function(quaternion, alpha, beta, gamma, orient) {
       euler.set(beta, alpha, -gamma, "YXZ"); // 'ZXY' for the device, but 'YXZ' for us

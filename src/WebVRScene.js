@@ -17,7 +17,7 @@ var TWEEN = require("@tweenjs/tween.js");
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
-  state = { controls: "" };
+  state = { controls: "", device: "" };
 
   componentDidMount() {
     this.sceneSetup();
@@ -27,7 +27,7 @@ class App extends Component {
 
   componentDidUpdate() {
     document.body.appendChild(
-      Recenter(this.renderer, this.state.controls, this.camera)
+      Recenter(this.renderer, this.state.controls, this.state.device)
     );
   }
 
@@ -60,19 +60,14 @@ class App extends Component {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
-        let controls = new DeviceOrientationControls(
-          this.camera,
-          this.renderer.domElement
-        );
-        this.setState({ controls: controls });
+        let controls = new DeviceOrientationControls(this.camera);
+        this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        console.log("VR!");
         this.renderer.vr.enabled = true;
       } else {
-        console.log("DeskTop!");
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.setState({ controls: controls });
+        this.setState({ controls: controls, device: "desktop" });
         controls.enableZoom = false;
         controls.target.set(0, 1.6, 0.0001);
         requestAnimationFrame(this.animate);
@@ -97,21 +92,12 @@ class App extends Component {
       showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
     );
   };
-  gg = 0;
+
   animate = time => {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    this.setState({
-      rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-      rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
-      skyX: (showroomsky.rotation.x / Math.PI) * 180,
-      skyy: (showroomsky.rotation.y / Math.PI) * 180,
-      skyz: (showroomsky.rotation.z / Math.PI) * 180
-    });
-    this.gg = (this.state.controls.object.rotation.y / Math.PI) * 180;
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();
@@ -124,17 +110,7 @@ class App extends Component {
   };
 
   render() {
-    const css = { color: "red", display: "block", position: "absolute" };
-    return (
-      <div ref={ref => (this.mount = ref)}>
-        <div style={{...css, top:"0px"}}>{this.state.rotationx}</div>
-        <div style={{...css, top:"15px"}}>{this.state.rotationy}</div>
-        <div style={{...css, top:"30px"}}>{this.state.rotationz}</div>
-        <div style={{...css, top:"45px"}}>{this.state.skyX}</div>
-        <div style={{...css, top:"60px"}}>{this.state.skyy}</div>
-        <div style={{...css, top:"75px"}}>{this.state.skyz}</div>
-      </div>
-    );
+    return <div ref={ref => (this.mount = ref)} />;
   }
 }
 

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { showroomsky } from "./ShowRoomSky";
 
-export const Recenter = (renderer, controls, camera) => {
+export const Recenter = (renderer, controls, type) => {
   function showRecenter(device) {
     button.style.display = "";
 
@@ -19,22 +19,15 @@ export const Recenter = (renderer, controls, camera) => {
     };
 
     button.onclick = function() {
-      // camera.position.set(0, 1.6, -0.001);
-      // controls.object.position.set(
-      //   1.2246467992175396e-20,
-      //   1.6,
-      //   0.00010000000002024652
-      // );
-
-      showroomsky.rotation.set(
-        // controls.object.rotation.x,
-        // -controls.object.rotation.x,
-        0,
-        controls.object.rotation.y,
-        0,
-        "XYZ"
-      );
-      console.log(controls.object);
+      if (type == "desktop") {
+        controls.object.position.set(
+          1.2246467992175396e-20,
+          1.6,
+          0.00010000000002024652
+        );
+      } else if (type == "vr") {
+        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+      }
     };
     renderer.vr.setDevice(device);
   }

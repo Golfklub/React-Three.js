@@ -104,7 +104,9 @@ class App extends Component {
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
     this.setState({
-      rotation: (this.state.controls.object.rotation.y / Math.PI) * 180
+      rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
+      rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
+      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180
     });
     this.gg = (this.state.controls.object.rotation.y / Math.PI) * 180;
   };
@@ -121,7 +123,9 @@ class App extends Component {
   render() {
     return (
       <div ref={ref => (this.mount = ref)}>
-        <div style={{ color: "red" }}>{this.state.rotation}</div>
+        <div style={{ color: "red" }}>{this.state.rotationx}</div>
+        <div style={{ color: "red" }}>{this.state.rotationy}</div>
+        <div style={{ color: "red" }}>{this.state.rotationz}</div>
       </div>
     );
   }

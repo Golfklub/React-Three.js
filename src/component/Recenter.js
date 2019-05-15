@@ -25,10 +25,11 @@ export const Recenter = (renderer, controls, camera) => {
       //   1.6,
       //   0.00010000000002024652
       // );
+
       showroomsky.rotation.set(
         // controls.object.rotation.x,
         0,
-        0,
+        -controls.object.rotation.y,
         0,
         "XYZ"
       );

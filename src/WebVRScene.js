@@ -60,7 +60,10 @@ class App extends Component {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
         this.renderer.vr.enabled = true;
-        let controls = new DeviceOrientationControls(this.camera , this.renderer.domElement);
+        let controls = new DeviceOrientationControls(
+          this.camera,
+          this.renderer.domElement
+        );
         this.setState({ controls: controls });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
@@ -100,6 +103,7 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    console.log((this.state.controls.object.rotation.y / Math.PI) * 180);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

@@ -126,12 +126,18 @@ class App extends Component {
   render() {
     return (
       <div ref={ref => (this.mount = ref)}>
-        <div style={{ color: "red" }}>{this.state.rotationx}</div>
-        <div style={{ color: "red" }}>{this.state.rotationy}</div>
-        <div style={{ color: "red" }}>{this.state.rotationz}</div>
-        <div style={{ color: "red" }}>{this.state.skyX}</div>
-        <div style={{ color: "red" }}>{this.state.skyy}</div>
-        <div style={{ color: "red" }}>{this.state.skyz}</div>
+        <div style={{ color: "red", display: "block" }}>
+          {this.state.rotationx}
+        </div>
+        <div style={{ color: "red", display: "block" }}>
+          {this.state.rotationy}
+        </div>
+        <div style={{ color: "red", display: "block" }}>
+          {this.state.rotationz}
+        </div>
+        <div style={{ color: "red", display: "block" }}>{this.state.skyX}</div>
+        <div style={{ color: "red", display: "block" }}>{this.state.skyy}</div>
+        <div style={{ color: "red", display: "block" }}>{this.state.skyz}</div>
       </div>
     );
   }

@@ -16,3 +16,15 @@ spheres.position.set(0, 0, 0);
 // spheres.rotate(1);
 
 export const showroomsky = spheres;
+
+const a = new THREE.SphereBufferGeometry(1, 60, 40);
+const b = new THREE.TextureLoader().load("https://i.imgur.com/SVMKD5z.jpg");
+const c = new THREE.MeshBasicMaterial({ map: b });
+const d = new THREE.Mesh(a, c);
+d.material.side = THREE.DoubleSide;
+d.position.set(0, 1.6, -2);
+var axis = new THREE.Vector3(1, 1, 0);
+// d.rotateOnAxis(axis, 1);
+var s = new THREE.Euler(THREE.Math.degToRad(1), 0, 0, "XYZ");
+d.setRotationFromEuler(s);
+export const e = d;

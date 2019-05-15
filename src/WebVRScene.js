@@ -61,7 +61,6 @@ class App extends Component {
         let controls = new DeviceOrientationControls(this.camera);
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
-        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
         this.startAnimationLoop();
         this.renderer.vr.enabled = true;
       } else {
@@ -90,6 +89,9 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    if (this.state.device === "vr") {
+      showroomsky.rotation.set(0, this.state.controls.rotation.y, 0, "XYZ");
+    }
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

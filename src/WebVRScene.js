@@ -91,6 +91,12 @@ class App extends Component {
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
     rotationY(this.state.controls.object.rotation.y);
+    showroomsky.rotation.set(
+      0,
+      this.state.controls.object.rotation.y,
+      0,
+      "XYZ"
+    );
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

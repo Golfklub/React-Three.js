@@ -131,9 +131,9 @@ class App extends Component {
 
     return (
       <div ref={ref => (this.mount = ref)}>
-        {/* <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>
+        <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>
         <div style={{ ...css, top: "15px" }}>{this.state.rotationy}</div>
-    <div style={{ ...css, top: "30px" }}>{this.state.rotationz}</div>*/}
+        <div style={{ ...css, top: "30px" }}>{this.state.rotationz}</div>
       </div>
     );
   }

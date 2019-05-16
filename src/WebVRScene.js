@@ -3,7 +3,7 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky } from "./component/ShowRoomSky";
+import { showroomsky ,sphereAngle} from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
@@ -77,15 +77,17 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     // this.scene.add(showroomsky);
+    sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(
-      showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
+      sphereAngle.add(showroomsky)
     );
+    showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
+    showroomsky.position.set(0,0,0);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
-    Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
+    //Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
   };
   lastTime = 0;
-  rota = new THREE.Vector3();
   ischeck;
 
   animate = time => {
@@ -98,25 +100,27 @@ class App extends Component {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.x;
-    if (!this.ischeck) {
-      console.log(time);
-      console.log(roty);
-      this.ischeck = true;
-    }
-    // this.rota.setX(roty);
+    const rotSpeed = THREE.Math.degToRad(90) * deltaTime;
+    const rotSpeedY = THREE.Math.degToRad(10) * deltaTime;
+
+    // sphereAngle.rotateY( rotSpeedY)
+    // showroomsky.rotateX( rotSpeed)
+    // sphereAngle.rotation.setY(sphereAngle.rotation.y+ rotSpeed);
+    // showroomsky.rotation.setX(showroomsky.rotation.x+ rotSpeed);
+    console.log(sphereAngle.rotation)
 
     //console.log(this.rota);
-    // rootContent.rotation.setFromVector3(this.rota);
+    // showroomsky.rotation.setFromVector3(this.rota);
+
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    this.setState({
-      rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-      rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-      rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
-      skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
-      skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
-      skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
-    });
+    // this.setState({
+    //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
+    //   rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
+    //   rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
+    //   skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
+    //   skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
+    //   skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
+    // });
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

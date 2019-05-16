@@ -96,14 +96,14 @@ class App extends Component {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.x;
+    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.z;
     if (!this.ischeck) {
       console.log(time);
 
       console.log(roty);
       this.ischeck = true;
     }
-    this.rota.setX(roty);
+    // this.rota.setZ(roty);
 
     //console.log(this.rota);
     showroomsky.rotation.setFromVector3(this.rota);

@@ -103,7 +103,7 @@ class App extends Component {
       console.log(roty);
       this.ischeck = true;
     }
-    // this.rota.setX(roty);
+    this.rota.setX(roty);
 
     //console.log(this.rota);
     showroomsky.rotation.setFromVector3(this.rota);

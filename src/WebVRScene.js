@@ -96,17 +96,17 @@ class App extends Component {
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.z;
+    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.x;
     if (!this.ischeck) {
       console.log(time);
 
       console.log(roty);
       this.ischeck = true;
     }
-    // this.rota.setZ(roty);
+    // this.rota.setX(roty);
 
     //console.log(this.rota);
-    showroomsky.rotation.setFromVector3(this.rota);
+    rootContent.rotation.setFromVector3(this.rota);
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 

@@ -24,10 +24,10 @@ export const Recenter = (renderer, controls, type) => {
         controls.object.position.set(0, 1.6, 0);
       } else if (type === "vr") {
         rootContent.rotation.set(
-          controls.object.rotation.x,
+          controls.object.rotation.x + THREE.Math.degToRad(-30),
           controls.object.rotation.y,
           controls.object.rotation.z,
-          "XYZ"
+          "ZYX"
         );
       }
     };

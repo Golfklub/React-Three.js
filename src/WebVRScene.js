@@ -101,7 +101,6 @@ class App extends Component {
     const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.x;
     if (!this.ischeck) {
       console.log(time);
-
       console.log(roty);
       this.ischeck = true;
     }

@@ -13,6 +13,6 @@ const skytexture = new THREE.MeshBasicMaterial({ map: texture });
 const spheres = new THREE.Mesh(sphere, skytexture);
 spheres.material.side = THREE.DoubleSide;
 spheres.position.set(0, 1.6, 0);
-spheres.rotation.set(0, 0, 0);
+spheres.rotation.set(18, -40, 12);
 
 export const showroomsky = spheres;

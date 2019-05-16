@@ -21,14 +21,21 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
-        controls.object.position.set(0, 0, 0);
+        // controls.object.position.set(0, 0, 0);
+        // controls.object.position.x = 0;
+
+        controls.object.position.y = 0;
+        // controls.object.position.z = 0;
       } else if (type === "vr") {
-        showroomsky.rotation.set(
-          controls.object.rotation.x,
-          controls.object.rotation.y,
-          controls.object.rotation.z,
-          "XYZ"
-        );
+        // showroomsky.rotation.set(
+        //   controls.object.rotation.x,
+        //   controls.object.rotation.y,
+        //   controls.object.rotation.z,
+        //   "XYZ"
+        // );
+
+        showroomsky.rotateY(controls.object.rotation.y);
+        showroomsky.rotateZ(controls.object.rotation.z);
       }
     };
     renderer.vr.setDevice(device);

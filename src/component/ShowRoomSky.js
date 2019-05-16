@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { rotationY } from "./../RotationY";
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 

@@ -12,6 +12,7 @@ import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
+import { rotationY } from "./RotationY";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
@@ -62,6 +63,7 @@ class App extends Component {
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
+        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
         this.renderer.vr.enabled = true;
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);

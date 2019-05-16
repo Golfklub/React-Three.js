@@ -27,7 +27,7 @@ export const Recenter = (renderer, controls, type) => {
         rootContent.rotation.set(
           controls.object.rotation.x,
           controls.object.rotation.y,
-          controls.object.rotation.z,
+          0,
           "XYZ"
         );
         console.log(rootContent.rotation.y);

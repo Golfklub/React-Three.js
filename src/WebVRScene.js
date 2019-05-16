@@ -7,8 +7,8 @@ import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
-  leftNavigate,
   rightNavigate,
+  leftNavigate,
   contentIndex
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
@@ -85,7 +85,7 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     this.scene.add(
-      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
+      showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     );
   };
 

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { showroomsky, sphereAngle } from "./ShowRoomSky";
+import { sphereInside, sphereAngle } from "./ShowRoomSky";
 import { rootContent } from "./RootContent";
 
 export const Recenter = (renderer, controls, type) => {
@@ -27,7 +27,7 @@ export const Recenter = (renderer, controls, type) => {
         controls.object.position.y = 0;
         // controls.object.position.z = 0;
       } else if (type === "vr") {
-        showroomsky.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+        sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
         sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
         // showroomsky.rotateY(controls.object.rotation.y);
         // showroomsky.rotateZ(controls.object.rotation.z);

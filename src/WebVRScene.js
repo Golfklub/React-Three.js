@@ -3,7 +3,7 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky ,sphereAngle} from "./component/ShowRoomSky";
+import { showroomsky ,sphereAngle,sphereInside} from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
@@ -79,10 +79,9 @@ class App extends Component {
     // this.scene.add(showroomsky);
     sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(
-      sphereAngle.add(showroomsky)
+      sphereAngle.add(showroomsky,sphereInside)
     );
-    showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
-    showroomsky.position.set(0,0,0);
+    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
     //Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));

@@ -6,7 +6,11 @@ import WebVRPolyfill from "webvr-polyfill";
 import { showroomsky } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
-import { leftNavigate, rightNavigate } from "./component/NavigateButton";
+import {
+  leftNavigate,
+  rightNavigate,
+  contentIndex
+} from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
@@ -80,7 +84,6 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    Content.map(res => this.scene.add(showroomsky.add(res)));
     this.scene.add(
       showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
     );
@@ -91,6 +94,10 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    if (contentIndex != this.state.contentIndex) {
+      this.setState({ contentIndex: contentIndex });
+      Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
+    }
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

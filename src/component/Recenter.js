@@ -27,7 +27,7 @@ export const Recenter = (renderer, controls, type) => {
           controls.object.rotation.x,
           controls.object.rotation.y,
           0,
-          "XYZ"
+          "ZYX"
         );
       }
     };

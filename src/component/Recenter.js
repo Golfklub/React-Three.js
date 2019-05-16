@@ -24,10 +24,9 @@ export const Recenter = (renderer, controls, type) => {
         controls.object.position.set(0, 0, 0);
       } else if (type === "vr") {
         showroomsky.rotation.set(
-          controls.object.rotation.x * Math.cos(controls.object.rotation.y),
+          controls.object.rotation.x,
           controls.object.rotation.y,
-          -controls.object.rotation.x * Math.sin(controls.object.rotation.y),
-
+          controls.object.rotation.z,
           "XYZ"
         );
       }

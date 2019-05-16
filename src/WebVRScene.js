@@ -3,7 +3,11 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky ,sphereAngle,sphereInside} from "./component/ShowRoomSky";
+import {
+  showroomsky,
+  sphereAngle,
+  sphereInside
+} from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
@@ -78,13 +82,11 @@ class App extends Component {
   addCustomSceneObjects = () => {
     // this.scene.add(showroomsky);
     sphereAngle.position.set(0, 1.6, 0);
-    this.scene.add(
-      sphereAngle.add(showroomsky,sphereInside)
-    );
-    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
+    this.scene.add(sphereAngle.add(showroomsky, sphereInside));
+    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
-    //Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
+    Content(contentIndex).map(res => sphereInside.add(res));
   };
   lastTime = 0;
   ischeck;
@@ -106,7 +108,7 @@ class App extends Component {
     // showroomsky.rotateX( rotSpeed)
     // sphereAngle.rotation.setY(sphereAngle.rotation.y+ rotSpeed);
     // showroomsky.rotation.setX(showroomsky.rotation.x+ rotSpeed);
-    console.log(sphereAngle.rotation)
+    console.log(sphereAngle.rotation);
 
     //console.log(this.rota);
     // showroomsky.rotation.setFromVector3(this.rota);

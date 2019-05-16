@@ -23,14 +23,12 @@ export const Recenter = (renderer, controls, type) => {
       if (type === "desktop") {
         controls.object.position.set(0, 0, 0);
       } else if (type === "vr") {
-        console.log(rootContent.rotation.y, controls.object.rotation.y);
-        rootContent.rotation.set(
+        showroomsky.rotation.set(
           controls.object.rotation.x,
           controls.object.rotation.y,
           0,
           "XYZ"
         );
-        console.log(rootContent.rotation.y);
       }
     };
     renderer.vr.setDevice(device);

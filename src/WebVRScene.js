@@ -76,13 +76,13 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    this.scene.add(showroomsky);
+    // this.scene.add(showroomsky);
     this.scene.add(
-      rootContent.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
+      showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     );
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
-    Content(contentIndex).map(res => this.scene.add(rootContent.add(res)));
+    Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
   };
   lastTime = 0;
   rota = new THREE.Vector3();

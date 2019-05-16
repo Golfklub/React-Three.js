@@ -21,7 +21,7 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
-        controls.object.position.set(0, 0, 0);
+        controls.object.position.set(0, 1.6, 0);
       } else if (type === "vr") {
         rootContent.rotation.set(
           controls.object.rotation.x,

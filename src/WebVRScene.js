@@ -65,7 +65,7 @@ class App extends Component {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
         controls.enableZoom = false;
-        // controls.target.set(0, 0, -0.0001);
+        controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
         this.startAnimationLoop();
       }
@@ -80,7 +80,7 @@ class App extends Component {
       rootContent.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     );
     this.scene.add(showroomsky.add(rootContent));
-    Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
+    Content(contentIndex).map(res => this.scene.add(rootContent.add(res)));
   };
   lastTime = 0;
   rota = new THREE.Vector3();

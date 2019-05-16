@@ -21,10 +21,16 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
-        controls.object.position.set(0, 1.6, 0);
+        controls.object.position.set(0, 0, 0);
       } else if (type === "vr") {
-        console.log('red')
-        rootContent.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+        console.log(rootContent.rotation.y, controls.object.rotation.y);
+        rootContent.rotation.set(
+          controls.object.rotation.x,
+          controls.object.rotation.y,
+          controls.object.rotation.z,
+          "XYZ"
+        );
+        console.log(rootContent.rotation.y);
       }
     };
     renderer.vr.setDevice(device);

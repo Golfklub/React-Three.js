@@ -76,10 +76,12 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
+    this.scene.add(showroomsky);
     this.scene.add(
       rootContent.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     );
-    this.scene.add(showroomsky.add(rootContent));
+    // this.scene.add(rootContent);
+    // this.scene.add(showroomsky.add(rootContent));
     Content(contentIndex).map(res => this.scene.add(rootContent.add(res)));
   };
   lastTime = 0;
@@ -106,7 +108,7 @@ class App extends Component {
     // this.rota.setX(roty);
 
     //console.log(this.rota);
-    rootContent.rotation.setFromVector3(this.rota);
+    // rootContent.rotation.setFromVector3(this.rota);
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 

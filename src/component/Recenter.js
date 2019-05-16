@@ -26,7 +26,7 @@ export const Recenter = (renderer, controls, type) => {
         showroomsky.rotation.set(
           controls.object.rotation.x,
           controls.object.rotation.y,
-          0,
+          controls.object.rotation.z,
           "XYZ"
         );
       }

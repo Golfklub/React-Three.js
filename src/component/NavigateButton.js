@@ -4,6 +4,8 @@ import { Interaction } from "three.interaction";
 import { boxA } from "./showroomcontent";
 import { Content } from "./showroomcontent";
 import { contentList } from "../resources/productAPI/showroomContent";
+import { showroomsky } from "../component/ShowRoomSky";
+import { scene } from "./sceneSetting";
 var TWEEN = require("@tweenjs/tween.js");
 
 export let contentIndex = 0;
@@ -36,10 +38,10 @@ leftTexture.transparent = true;
 leftTexture.side = THREE.DoubleSide;
 
 export const leftNavigate = new THREE.Mesh(Geometry, rightTexture);
-leftNavigate.position.set(-0.1, -0.25 + 1.6, -0.675);
+leftNavigate.position.set(-0.1, -0.25, -0.675);
 
 export const rightNavigate = new THREE.Mesh(Geometry, leftTexture);
-rightNavigate.position.set(0.1, -0.25 + 1.6, -0.675);
+rightNavigate.position.set(0.1, -0.25, -0.675);
 
 const time = new THREE.Clock();
 
@@ -55,7 +57,7 @@ rightNavigate.on("mousedown", function(ev) {
   rightNavigate.scale.set(0.9, 0.9, 0.9);
   if (contentIndex < contentList.length - 1) {
     contentIndex++;
-    console.log(contentIndex);
+    Content(contentIndex).map(res => scene.add(showroomsky.add(res)));
   }
   // Content.map(res => {
   //   var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
@@ -92,9 +94,10 @@ leftNavigate.on("mouseout", function(ev) {
 
 leftNavigate.on("mousedown", function(ev) {
   leftNavigate.scale.set(0.9, 0.9, 0.9);
+
   if (contentIndex > 0) {
     contentIndex--;
-    console.log(contentIndex);
+    Content(contentIndex).map(res => scene.add(showroomsky.add(res)));
   }
 });
 

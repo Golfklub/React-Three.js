@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { showroomsky } from "./ShowRoomSky";
+import { rootContent } from "./RootContent";
 
 export const Recenter = (renderer, controls, type) => {
   function showRecenter(device) {
@@ -20,13 +21,14 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
-        controls.object.position.set(
-          1.2246467992175396e-20,
-          1.6,
-          0.00010000000002024652
-        );
+        controls.object.position.set(0, 0, 0);
       } else if (type === "vr") {
-        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+        rootContent.rotation.set(
+          controls.object.rotation.x,
+          controls.object.rotation.y,
+          0,
+          "XYZ"
+        );
       }
     };
     renderer.vr.setDevice(device);

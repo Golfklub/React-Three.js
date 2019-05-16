@@ -17,6 +17,8 @@ import { DeviceOrientationControls } from "./resources/controls/DeviceOrientatio
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
+import { scene, camera, raycaster } from "./component/sceneSetting";
+import { rootContent } from "./component/RootContent";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
@@ -37,19 +39,9 @@ class App extends Component {
   }
 
   sceneSetup = async () => {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      80,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    this.raycaster = new THREE.Raycaster();
-    this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
-
-    this.camera.position.y = 1.6;
-    this.camera.position.z = 0.0001;
-
+    this.scene = scene;
+    this.camera = camera;
+    this.raycaster = raycaster;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.domElement.style.display = "block";
@@ -73,7 +65,7 @@ class App extends Component {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
         controls.enableZoom = false;
-        controls.target.set(0, 1.6, 0.0001);
+        // controls.target.set(0, 0, -0.0001);
         requestAnimationFrame(this.animate);
         this.startAnimationLoop();
       }
@@ -85,19 +77,37 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     this.scene.add(
-      showroomsky.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
+      rootContent.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo)
     );
+    this.scene.add(showroomsky.add(rootContent));
+    Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
   };
+  lastTime = 0;
+  rota = new THREE.Vector3();
+  ischeck;
 
   animate = time => {
+    if (!time) {
+      time = 0;
+    }
+    const deltaTime = (time - this.lastTime) / 1000;
+    this.lastTime = time;
+
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    if (contentIndex != this.state.contentIndex) {
-      this.setState({ contentIndex: contentIndex });
-      Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
+    const roty = THREE.Math.degToRad(30) * deltaTime + this.rota.x;
+    if (!this.ischeck) {
+      console.log(time);
+
+      console.log(roty);
+      this.ischeck = true;
     }
+    // this.rota.setX(roty);
+
+    //console.log(this.rota);
+    showroomsky.rotation.setFromVector3(this.rota);
+    TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

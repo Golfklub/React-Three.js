@@ -5,7 +5,7 @@
  * Based on @tojiro's vr-samples-utils.js
  */
 
-import { sphereInside } from "../../component/ShowRoomSky";
+import { sphereInside, sphereAngle } from "../../component/ShowRoomSky";
 
 export const WEBVR = {
   createButton: function(renderer, options) {
@@ -31,6 +31,7 @@ export const WEBVR = {
 
       button.onclick = function() {
         sphereInside.rotation.set(0, 0, 0, "XYZ");
+        sphereAngle.rotation.set(0, 0, 0, "XYZ");
 
         device.isPresenting
           ? device.exitPresent()

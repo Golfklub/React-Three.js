@@ -3,12 +3,16 @@ import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
 import { Content } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
-import { showroomsky } from "./component/ShowRoomSky";
+import {
+  showroomsky,
+  sphereAngle,
+  sphereInside
+} from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
-  leftNavigate,
   rightNavigate,
+  leftNavigate,
   contentIndex
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
@@ -17,6 +21,8 @@ import { DeviceOrientationControls } from "./resources/controls/DeviceOrientatio
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
+import { scene, camera, raycaster } from "./component/sceneSetting";
+import { rootContent } from "./component/RootContent";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
@@ -37,19 +43,9 @@ class App extends Component {
   }
 
   sceneSetup = async () => {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      80,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    this.raycaster = new THREE.Raycaster();
-    this.raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
-
-    this.camera.position.y = 1.6;
-    this.camera.position.z = 0.0001;
-
+    this.scene = scene;
+    this.camera = camera;
+    this.raycaster = raycaster;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.domElement.style.display = "block";
@@ -67,13 +63,13 @@ class App extends Component {
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        showroomsky.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+        rootContent.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
         this.renderer.vr.enabled = true;
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
         controls.enableZoom = false;
-        controls.target.set(0, 1.6, 0.0001);
+        controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
         this.startAnimationLoop();
       }
@@ -84,20 +80,48 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    this.scene.add(
-      showroomsky.add(circleframe, leftNavigate, rightNavigate, Toolbar, logo)
-    );
+    // this.scene.add(showroomsky);
+    sphereAngle.position.set(0, 1.6, 0);
+    this.scene.add(sphereAngle.add(showroomsky, sphereInside));
+    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo);
+    // this.scene.add(rootContent);
+    // this.scene.add(showroomsky.add(rootContent));
+    Content(contentIndex).map(res => sphereInside.add(res));
   };
+  lastTime = 0;
+  ischeck;
 
   animate = time => {
+    if (!time) {
+      time = 0;
+    }
+    const deltaTime = (time - this.lastTime) / 1000;
+    this.lastTime = time;
+
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
+    const rotSpeed = THREE.Math.degToRad(90) * deltaTime;
+    const rotSpeedY = THREE.Math.degToRad(10) * deltaTime;
+
+    // sphereAngle.rotateY( rotSpeedY)
+    // showroomsky.rotateX( rotSpeed)
+    // sphereAngle.rotation.setY(sphereAngle.rotation.y+ rotSpeed);
+    // showroomsky.rotation.setX(showroomsky.rotation.x+ rotSpeed);
+    console.log(sphereAngle.rotation);
+
+    //console.log(this.rota);
+    // showroomsky.rotation.setFromVector3(this.rota);
+
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    if (contentIndex != this.state.contentIndex) {
-      this.setState({ contentIndex: contentIndex });
-      Content(contentIndex).map(res => this.scene.add(showroomsky.add(res)));
-    }
+    // this.setState({
+    //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
+    //   rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
+    //   rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
+    //   skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
+    //   skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
+    //   skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
+    // });
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();
@@ -110,7 +134,18 @@ class App extends Component {
   };
 
   render() {
-    return <div ref={ref => (this.mount = ref)} />;
+    const css = { color: "red", display: "block", position: "absolute" };
+
+    return (
+      <div ref={ref => (this.mount = ref)}>
+        <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>
+        <div style={{ ...css, top: "15px" }}>{this.state.rotationy}</div>
+        <div style={{ ...css, top: "30px" }}>{this.state.rotationz}</div>
+        <div style={{ ...css, top: "45px" }}>{this.state.skyX}</div>
+        <div style={{ ...css, top: "60px" }}>{this.state.skyy}</div>
+        <div style={{ ...css, top: "75px" }}>{this.state.skyz}</div>
+      </div>
+    );
   }
 }
 

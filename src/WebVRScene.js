@@ -107,6 +107,8 @@ class App extends Component {
     let intersectsRight = raycaster.intersectObjects(rightButton.children);
     if (intersectsRight.length > 0) {
       if (this.INTERSECTEDRIGHT != intersectsRight[0].object) {
+        // console.log(this.contentIndex);
+
         if (this.INTERSECTEDRIGHT)
           this.INTERSECTEDRIGHT = intersectsRight[0].object;
         this.INTERSECTEDRIGHT = intersectsRight[0].object;
@@ -124,7 +126,6 @@ class App extends Component {
       }
     } else {
       if (this.INTERSECTEDRIGHT) {
-        console.log(this.objX, this.objY, this.objZ);
         this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
         this.INTERSECTEDRIGHT = undefined;
@@ -134,6 +135,7 @@ class App extends Component {
     let intersectsLeft = raycaster.intersectObjects(leftButton.children);
     if (intersectsLeft.length > 0) {
       if (this.INTERSECTEDLEFT != intersectsLeft[0].object) {
+        // console.log(this.contentIndex);
         if (this.INTERSECTEDLEFT)
           this.INTERSECTEDLEFT = intersectsLeft[0].object;
         this.INTERSECTEDLEFT = intersectsLeft[0].object;
@@ -141,7 +143,11 @@ class App extends Component {
         this.objY = intersectsLeft[0].object.scale.y;
         this.objZ = intersectsLeft[0].object.scale.z;
         intersectsLeft[0].object.scale.set(1.2, 1.2, 1.2);
-        if (this.contentIndex < contentList.length - 1) {
+        if (
+          this.contentIndex < contentList.length + 1 &&
+          this.contentIndex !== 0
+        ) {
+          // console.log(this.contentIndex);
           this.longClick = setTimeout(
             () => Content(this.contentIndex).map(res => sphereInside.add(res)),
             1500
@@ -151,7 +157,6 @@ class App extends Component {
       }
     } else {
       if (this.INTERSECTEDLEFT) {
-        console.log(this.objX, this.objY, this.objZ);
         this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
         this.INTERSECTEDLEFT = undefined;

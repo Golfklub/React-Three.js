@@ -14,9 +14,9 @@ import {
   rightNavigate,
   leftNavigate,
   contentIndex,
+  NavigateButton,
   rightButton,
-  leftButton,
-  NavigateButton
+  leftButton
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
@@ -26,10 +26,10 @@ import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
-import { contentList } from "./resources/productAPI/showroomContent";
 import { crosshair } from "./component/crosshair";
+import Reticulum from "./resources/reticulum";
+import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
-
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -76,10 +76,10 @@ class App extends Component {
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
-        controls.enableZoom = false;
+        // controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        this.startAnimationLoop();
+        // this.startAnimationLoop();
       }
     });
     this.renderer.setAnimationLoop(() => {
@@ -91,11 +91,12 @@ class App extends Component {
     // this.camera.add(crosshair);
     this.scene.add(camera);
     // this.scene.add(showroomsky);
-    sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
+    sphereAngle.position.set(0, 1.6, 0);
+
     Content(contentIndex).map(res => sphereInside.add(res));
   };
   lastTime = 0;
@@ -114,16 +115,16 @@ class App extends Component {
         this.objZ = intersectsRight[0].object.scale.z;
         intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
         if (this.contentIndex < contentList.length - 1) {
-          this.contentIndex++;
           this.longClick = setTimeout(
             () => Content(this.contentIndex).map(res => sphereInside.add(res)),
             1500
           );
-          console.log(this.contentIndex);
+          this.contentIndex++;
         }
       }
     } else {
       if (this.INTERSECTEDRIGHT) {
+        console.log(this.objX, this.objY, this.objZ);
         this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
         this.INTERSECTEDRIGHT = undefined;
@@ -140,12 +141,12 @@ class App extends Component {
         this.objY = intersectsLeft[0].object.scale.y;
         this.objZ = intersectsLeft[0].object.scale.z;
         intersectsLeft[0].object.scale.set(1.2, 1.2, 1.2);
-        if (this.contentIndex > contentList.length - 1) {
-          this.contentIndex--;
+        if (this.contentIndex < contentList.length - 1) {
           this.longClick = setTimeout(
             () => Content(this.contentIndex).map(res => sphereInside.add(res)),
             1500
           );
+          this.contentIndex--;
         }
       }
     } else {
@@ -174,7 +175,6 @@ class App extends Component {
 
   render() {
     const css = { color: "red", display: "block", position: "absolute" };
-
     return (
       <div ref={ref => (this.mount = ref)}>
         <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>

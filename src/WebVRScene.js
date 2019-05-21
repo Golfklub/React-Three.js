@@ -19,6 +19,7 @@ import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
+import { crosshair } from "./component/crosshair";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
@@ -77,6 +78,8 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     // this.scene.add(showroomsky);
+    this.camera.add(crosshair);
+    this.scene.add(camera);
     sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, NavigateButton, Toolbar, logo);

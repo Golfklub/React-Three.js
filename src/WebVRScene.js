@@ -89,7 +89,7 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     // this.camera.add(crosshair);
-    this.scene.add(camera);
+    // this.scene.add(camera);
     // this.scene.add(showroomsky);
     sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));

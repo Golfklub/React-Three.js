@@ -14,9 +14,9 @@ import {
   rightNavigate,
   leftNavigate,
   contentIndex,
-  NavigateButton,
   rightButton,
-  leftButton
+  leftButton,
+  NavigateButton
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
@@ -26,10 +26,9 @@ import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
-import { crosshair } from "./component/crosshair";
-import Reticulum from "./resources/reticulum";
 import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
+
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -37,7 +36,7 @@ class App extends Component {
   INTERSECTEDRIGHT;
   INTERSECTEDLEFT;
   contentIndex = contentIndex;
-
+  
   componentDidMount() {
     this.sceneSetup();
     this.addCustomSceneObjects();
@@ -76,10 +75,10 @@ class App extends Component {
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
-        // controls.enableZoom = false;
+        controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        // this.startAnimationLoop();
+        this.startAnimationLoop();
       }
     });
     this.renderer.setAnimationLoop(() => {
@@ -88,15 +87,12 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    // this.camera.add(crosshair);
-    this.scene.add(camera);
     // this.scene.add(showroomsky);
+    sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
-    sphereAngle.position.set(0, 1.6, 0);
-
     Content(contentIndex).map(res => sphereInside.add(res));
   };
   lastTime = 0;
@@ -164,7 +160,7 @@ class App extends Component {
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
   };
 
-  startAnimationLoop = () => !this.frameId;
+  startAnimationLoop = () => !this.frameId && this.animate();
 
   handleWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -175,6 +171,7 @@ class App extends Component {
 
   render() {
     const css = { color: "red", display: "block", position: "absolute" };
+
     return (
       <div ref={ref => (this.mount = ref)}>
         <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>

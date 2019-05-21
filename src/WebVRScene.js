@@ -10,11 +10,7 @@ import {
 } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
-import {
-  rightNavigate,
-  leftNavigate,
-  contentIndex
-} from "./component/NavigateButton";
+import { contentIndex, NavigateButton } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
@@ -83,7 +79,7 @@ class App extends Component {
     // this.scene.add(showroomsky);
     sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
-    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo);
+    sphereInside.add(circleframe, NavigateButton, Toolbar, logo);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
     Content(contentIndex).map(res => sphereInside.add(res));

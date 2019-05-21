@@ -43,6 +43,8 @@ leftNavigate.position.set(-0.1, -0.25, -0.675);
 export const rightNavigate = new THREE.Mesh(Geometry, leftTexture);
 rightNavigate.position.set(0.1, -0.25, -0.675);
 
+export const NavigateButton = new THREE.Object3D();
+
 const time = new THREE.Clock();
 
 rightNavigate.on("mouseover", function(ev) {
@@ -57,7 +59,10 @@ rightNavigate.on("mousedown", function(ev) {
   rightNavigate.scale.set(0.9, 0.9, 0.9);
   if (contentIndex < contentList.length - 1) {
     contentIndex++;
-    Content(contentIndex).map(res => scene.add(showroomsky.add(res)));
+    showroomsky.remove(Content);
+    Content(contentIndex).map(res => {
+      showroomsky.add(res);
+    });
   }
   // Content.map(res => {
   //   var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
@@ -97,7 +102,10 @@ leftNavigate.on("mousedown", function(ev) {
 
   if (contentIndex > 0) {
     contentIndex--;
-    Content(contentIndex).map(res => scene.add(showroomsky.add(res)));
+    showroomsky.remove(Content);
+    Content(contentIndex).map(res => {
+      showroomsky.add(res);
+    });
   }
 });
 

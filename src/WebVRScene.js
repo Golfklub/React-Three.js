@@ -13,7 +13,8 @@ import { config } from "./component/configWebVR";
 import {
   rightNavigate,
   leftNavigate,
-  contentIndex
+  contentIndex,
+  NavigateButton
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
@@ -23,12 +24,15 @@ import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
+import { crosshair } from "./component/crosshair";
+import Reticulum from "./resources/reticulum";
 var TWEEN = require("@tweenjs/tween.js");
 
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
   state = { controls: "", device: "" };
+  INTERSECTED;
 
   componentDidMount() {
     this.sceneSetup();
@@ -68,10 +72,10 @@ class App extends Component {
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
-        controls.enableZoom = false;
+        // controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        this.startAnimationLoop();
+        // this.startAnimationLoop();
       }
     });
     this.renderer.setAnimationLoop(() => {
@@ -80,12 +84,16 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
+    this.camera.add(crosshair);
+    this.scene.add(camera);
     // this.scene.add(showroomsky);
-    sphereAngle.position.set(0, 1.6, 0);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
-    sphereInside.add(circleframe, rightNavigate, leftNavigate, Toolbar, logo);
+    sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
+    NavigateButton.add(rightNavigate, leftNavigate);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
+    sphereAngle.position.set(0, 1.6, 0);
+
     Content(contentIndex).map(res => sphereInside.add(res));
   };
   lastTime = 0;
@@ -97,22 +105,28 @@ class App extends Component {
     }
     const deltaTime = (time - this.lastTime) / 1000;
     this.lastTime = time;
+    raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
+    let intersects = raycaster.intersectObjects(NavigateButton.children);
+    if (intersects.length > 0) {
+      if (this.INTERSECTED != intersects[0].object) {
+        if (this.INTERSECTED) this.INTERSECTED = intersects[0].object;
+        this.INTERSECTED = intersects[0].object;
+        this.objX = intersects[0].object.scale.x;
+        this.objY = intersects[0].object.scale.y;
+        this.objZ = intersects[0].object.scale.z;
+        intersects[0].object.scale.set(1.2, 1.2, 1.2);
+      }
+    } else {
+      if (this.INTERSECTED) {
+        console.log(this.objX, this.objY, this.objZ);
+        this.INTERSECTED.scale.set(this.objX, this.objY, this.objZ);
 
+        this.INTERSECTED = undefined;
+      }
+    }
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    const rotSpeed = THREE.Math.degToRad(90) * deltaTime;
-    const rotSpeedY = THREE.Math.degToRad(10) * deltaTime;
-
-    // sphereAngle.rotateY( rotSpeedY)
-    // showroomsky.rotateX( rotSpeed)
-    // sphereAngle.rotation.setY(sphereAngle.rotation.y+ rotSpeed);
-    // showroomsky.rotation.setX(showroomsky.rotation.x+ rotSpeed);
-    console.log(sphereAngle.rotation);
-
-    //console.log(this.rota);
-    // showroomsky.rotation.setFromVector3(this.rota);
-
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
     // this.setState({
     //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
@@ -124,7 +138,7 @@ class App extends Component {
     // });
   };
 
-  startAnimationLoop = () => !this.frameId && this.animate();
+  startAnimationLoop = () => !this.frameId;
 
   handleWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -135,7 +149,6 @@ class App extends Component {
 
   render() {
     const css = { color: "red", display: "block", position: "absolute" };
-
     return (
       <div ref={ref => (this.mount = ref)}>
         <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>

@@ -10,7 +10,14 @@ import {
 } from "./component/ShowRoomSky";
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
-import { contentIndex, NavigateButton } from "./component/NavigateButton";
+import {
+  rightNavigate,
+  leftNavigate,
+  contentIndex,
+  NavigateButton,
+  rightButton,
+  leftButton
+} from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
@@ -20,12 +27,16 @@ import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
 import { crosshair } from "./component/crosshair";
+import Reticulum from "./resources/reticulum";
+import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
-
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
   state = { controls: "", device: "" };
+  INTERSECTEDRIGHT;
+  INTERSECTEDLEFT;
+  contentIndex = contentIndex;
 
   componentDidMount() {
     this.sceneSetup();
@@ -65,10 +76,10 @@ class App extends Component {
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
-        controls.enableZoom = false;
+        // controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        this.startAnimationLoop();
+        // this.startAnimationLoop();
       }
     });
     this.renderer.setAnimationLoop(() => {
@@ -77,50 +88,80 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    // this.scene.add(showroomsky);
-    this.camera.add(crosshair);
+    // this.camera.add(crosshair);
     this.scene.add(camera);
-    sphereAngle.position.set(0, 1.6, 0);
+    // this.scene.add(showroomsky);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
-    sphereInside.add(circleframe, NavigateButton, Toolbar, logo);
+    sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
+    sphereAngle.position.set(0, 1.6, 0);
+
     Content(contentIndex).map(res => sphereInside.add(res));
   };
   lastTime = 0;
   ischeck;
 
   animate = time => {
-    if (!time) {
-      time = 0;
+    raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
+    let intersectsRight = raycaster.intersectObjects(rightButton.children);
+    if (intersectsRight.length > 0) {
+      if (this.INTERSECTEDRIGHT != intersectsRight[0].object) {
+        if (this.INTERSECTEDRIGHT)
+          this.INTERSECTEDRIGHT = intersectsRight[0].object;
+        this.INTERSECTEDRIGHT = intersectsRight[0].object;
+        this.objX = intersectsRight[0].object.scale.x;
+        this.objY = intersectsRight[0].object.scale.y;
+        this.objZ = intersectsRight[0].object.scale.z;
+        intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
+        if (this.contentIndex < contentList.length - 1) {
+          this.longClick = setTimeout(
+            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
+            1500
+          );
+          this.contentIndex++;
+        }
+      }
+    } else {
+      if (this.INTERSECTEDRIGHT) {
+        console.log(this.objX, this.objY, this.objZ);
+        this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
+        clearTimeout(this.longClick);
+        this.INTERSECTEDRIGHT = undefined;
+      }
     }
-    const deltaTime = (time - this.lastTime) / 1000;
-    this.lastTime = time;
+
+    let intersectsLeft = raycaster.intersectObjects(leftButton.children);
+    if (intersectsLeft.length > 0) {
+      if (this.INTERSECTEDLEFT != intersectsLeft[0].object) {
+        if (this.INTERSECTEDLEFT)
+          this.INTERSECTEDLEFT = intersectsLeft[0].object;
+        this.INTERSECTEDLEFT = intersectsLeft[0].object;
+        this.objX = intersectsLeft[0].object.scale.x;
+        this.objY = intersectsLeft[0].object.scale.y;
+        this.objZ = intersectsLeft[0].object.scale.z;
+        intersectsLeft[0].object.scale.set(1.2, 1.2, 1.2);
+        if (this.contentIndex < contentList.length - 1) {
+          this.longClick = setTimeout(
+            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
+            1500
+          );
+          this.contentIndex--;
+        }
+      }
+    } else {
+      if (this.INTERSECTEDLEFT) {
+        console.log(this.objX, this.objY, this.objZ);
+        this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
+        clearTimeout(this.longClick);
+        this.INTERSECTEDLEFT = undefined;
+      }
+    }
 
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
-    const rotSpeed = THREE.Math.degToRad(90) * deltaTime;
-    const rotSpeedY = THREE.Math.degToRad(10) * deltaTime;
-
-    // sphereAngle.rotateY( rotSpeedY)
-    // showroomsky.rotateX( rotSpeed)
-    // sphereAngle.rotation.setY(sphereAngle.rotation.y+ rotSpeed);
-    // showroomsky.rotation.setX(showroomsky.rotation.x+ rotSpeed);
-    console.log(sphereAngle.rotation);
-
-    //console.log(this.rota);
-    // showroomsky.rotation.setFromVector3(this.rota);
-
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    // this.setState({
-    //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-    //   rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-    //   rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
-    //   skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
-    //   skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
-    //   skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
-    // });
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();
@@ -134,7 +175,6 @@ class App extends Component {
 
   render() {
     const css = { color: "red", display: "block", position: "absolute" };
-
     return (
       <div ref={ref => (this.mount = ref)}>
         <div style={{ ...css, top: "0px" }}>{this.state.rotationx}</div>

@@ -10,5 +10,5 @@ export const crosshair = new THREE.Mesh(
 );
 
 crosshair.position.z = -0.1;
-crosshair.position.x = 0.04;
+crosshair.position.x = 0.03;
 // crosshair.position.y = 1.6;

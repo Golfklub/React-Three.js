@@ -26,7 +26,7 @@ import { Recenter } from "./component/Recenter";
 import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
-import { crosshair } from "./component/crosshair";
+import { crosshair, loadingCursor } from "./component/crosshair";
 import Reticulum from "./resources/reticulum";
 import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
@@ -88,13 +88,10 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    // this.camera.add(crosshair);
+    this.camera.add(crosshair);
     this.scene.add(camera);
-    // this.scene.add(showroomsky);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
-    // this.scene.add(rootContent);
-    // this.scene.add(showroomsky.add(rootContent));
     sphereAngle.position.set(0, 1.6, 0);
 
     Content(contentIndex).map(res => sphereInside.add(res));
@@ -117,6 +114,10 @@ class App extends Component {
         this.objZ = intersectsRight[0].object.scale.z;
         intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
         if (this.contentIndex < contentList.length - 1) {
+          var tween = new TWEEN.Tween(loadingCursor.scale) // ใส่ค่าที่ต้องการจะเปลี่ยนในนี้
+            .to({ x: 20, y: 20, z: 1 }, 1500) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
+            .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
+            .start();
           this.longClick = setTimeout(
             () => Content(this.contentIndex).map(res => sphereInside.add(res)),
             1500
@@ -126,6 +127,7 @@ class App extends Component {
       }
     } else {
       if (this.INTERSECTEDRIGHT) {
+        loadingCursor.scale.set(1, 1, 1);
         this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
         this.INTERSECTEDRIGHT = undefined;
@@ -146,17 +148,22 @@ class App extends Component {
         if (
           this.contentIndex < contentList.length + 1 &&
           this.contentIndex !== 0
-        ) {
-          // console.log(this.contentIndex);
-          this.longClick = setTimeout(
-            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
-            1500
-          );
-          this.contentIndex--;
-        }
+        )
+          var tween = new TWEEN.Tween(loadingCursor.scale) // ใส่ค่าที่ต้องการจะเปลี่ยนในนี้
+            .to({ x: 20, y: 20, z: 1 }, 1500) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
+            .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
+            .start();
+        // console.log(this.contentIndex);
+        this.longClick = setTimeout(
+          () => Content(this.contentIndex).map(res => sphereInside.add(res)),
+          1500
+        );
+        this.contentIndex--;
       }
     } else {
       if (this.INTERSECTEDLEFT) {
+        loadingCursor.scale.set(1, 1, 1);
+
         this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
         this.INTERSECTEDLEFT = undefined;

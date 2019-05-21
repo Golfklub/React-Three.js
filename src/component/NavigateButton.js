@@ -37,13 +37,20 @@ const leftTexture = new THREE.MeshBasicMaterial({ map: leftImage });
 leftTexture.transparent = true;
 leftTexture.side = THREE.DoubleSide;
 
-export const leftNavigate = new THREE.Mesh(Geometry, rightTexture);
+ const leftNavigate = new THREE.Mesh(Geometry, rightTexture);
 leftNavigate.position.set(-0.1, -0.25, -0.675);
 
-export const rightNavigate = new THREE.Mesh(Geometry, leftTexture);
+ const rightNavigate = new THREE.Mesh(Geometry, leftTexture);
 rightNavigate.position.set(0.1, -0.25, -0.675);
 
+export const rightButton = new THREE.Object3D();
+rightButton.add(rightNavigate);
+
+export const leftButton = new THREE.Object3D();
+leftButton.add(leftNavigate);
+
 export const NavigateButton = new THREE.Object3D();
+NavigateButton.add(rightButton, leftButton);
 
 const time = new THREE.Clock();
 

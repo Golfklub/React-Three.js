@@ -6,6 +6,8 @@
  */
 
 import { sphereInside, sphereAngle } from "../../component/ShowRoomSky";
+import { camera } from "../../component/sceneSetting";
+import { crosshair } from "../../component/crosshair";
 
 export const WEBVR = {
   createButton: function(renderer, options) {
@@ -32,7 +34,7 @@ export const WEBVR = {
       button.onclick = function() {
         sphereInside.rotation.set(0, 0, 0, "XYZ");
         sphereAngle.rotation.set(0, 0, 0, "XYZ");
-
+        camera.add(crosshair);
         device.isPresenting
           ? device.exitPresent()
           : device.requestPresent([{ source: renderer.domElement }]);

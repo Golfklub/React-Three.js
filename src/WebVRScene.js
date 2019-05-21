@@ -14,7 +14,9 @@ import {
   rightNavigate,
   leftNavigate,
   contentIndex,
-  NavigateButton
+  NavigateButton,
+  rightButton,
+  leftButton
 } from "./component/NavigateButton";
 import { Toolbar } from "./component/toolbar";
 import { WEBVR } from "./resources/controls/WebVR";
@@ -26,13 +28,15 @@ import { scene, camera, raycaster } from "./component/sceneSetting";
 import { rootContent } from "./component/RootContent";
 import { crosshair } from "./component/crosshair";
 import Reticulum from "./resources/reticulum";
+import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
-
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
   state = { controls: "", device: "" };
-  INTERSECTED;
+  INTERSECTEDRIGHT;
+  INTERSECTEDLEFT;
+  contentIndex = contentIndex;
 
   componentDidMount() {
     this.sceneSetup();
@@ -84,12 +88,11 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    this.camera.add(crosshair);
+    // this.camera.add(crosshair);
     this.scene.add(camera);
     // this.scene.add(showroomsky);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
-    NavigateButton.add(rightNavigate, leftNavigate);
     // this.scene.add(rootContent);
     // this.scene.add(showroomsky.add(rootContent));
     sphereAngle.position.set(0, 1.6, 0);
@@ -100,42 +103,65 @@ class App extends Component {
   ischeck;
 
   animate = time => {
-    if (!time) {
-      time = 0;
-    }
-    const deltaTime = (time - this.lastTime) / 1000;
-    this.lastTime = time;
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
-    let intersects = raycaster.intersectObjects(NavigateButton.children);
-    if (intersects.length > 0) {
-      if (this.INTERSECTED != intersects[0].object) {
-        if (this.INTERSECTED) this.INTERSECTED = intersects[0].object;
-        this.INTERSECTED = intersects[0].object;
-        this.objX = intersects[0].object.scale.x;
-        this.objY = intersects[0].object.scale.y;
-        this.objZ = intersects[0].object.scale.z;
-        intersects[0].object.scale.set(1.2, 1.2, 1.2);
+    let intersectsRight = raycaster.intersectObjects(rightButton.children);
+    if (intersectsRight.length > 0) {
+      if (this.INTERSECTEDRIGHT != intersectsRight[0].object) {
+        if (this.INTERSECTEDRIGHT)
+          this.INTERSECTEDRIGHT = intersectsRight[0].object;
+        this.INTERSECTEDRIGHT = intersectsRight[0].object;
+        this.objX = intersectsRight[0].object.scale.x;
+        this.objY = intersectsRight[0].object.scale.y;
+        this.objZ = intersectsRight[0].object.scale.z;
+        intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
+        if (this.contentIndex < contentList.length - 1) {
+          this.longClick = setTimeout(
+            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
+            1500
+          );
+          this.contentIndex++;
+        }
       }
     } else {
-      if (this.INTERSECTED) {
+      if (this.INTERSECTEDRIGHT) {
         console.log(this.objX, this.objY, this.objZ);
-        this.INTERSECTED.scale.set(this.objX, this.objY, this.objZ);
-
-        this.INTERSECTED = undefined;
+        this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
+        clearTimeout(this.longClick);
+        this.INTERSECTEDRIGHT = undefined;
       }
     }
+
+    let intersectsLeft = raycaster.intersectObjects(leftButton.children);
+    if (intersectsLeft.length > 0) {
+      if (this.INTERSECTEDLEFT != intersectsLeft[0].object) {
+        if (this.INTERSECTEDLEFT)
+          this.INTERSECTEDLEFT = intersectsLeft[0].object;
+        this.INTERSECTEDLEFT = intersectsLeft[0].object;
+        this.objX = intersectsLeft[0].object.scale.x;
+        this.objY = intersectsLeft[0].object.scale.y;
+        this.objZ = intersectsLeft[0].object.scale.z;
+        intersectsLeft[0].object.scale.set(1.2, 1.2, 1.2);
+        if (this.contentIndex < contentList.length - 1) {
+          this.longClick = setTimeout(
+            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
+            1500
+          );
+          this.contentIndex--;
+        }
+      }
+    } else {
+      if (this.INTERSECTEDLEFT) {
+        console.log(this.objX, this.objY, this.objZ);
+        this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
+        clearTimeout(this.longClick);
+        this.INTERSECTEDLEFT = undefined;
+      }
+    }
+
     this.frameId = requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    // this.setState({
-    //   rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-    //   rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-    //   rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180,
-    //   skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
-    //   skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
-    //   skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
-    // });
   };
 
   startAnimationLoop = () => !this.frameId;

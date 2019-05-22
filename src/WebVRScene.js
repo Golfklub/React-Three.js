@@ -167,7 +167,10 @@ class App extends Component {
     } else {
       if (this.INTERSECTEDLEFT) {
         clearTimeout(this.longClick);
-        loadingCursor.scale.set(1, 1, 1);
+        var tween = new TWEEN.Tween(loadingCursor.scale)
+          .to({ x: 1, y: 1, z: 1 }, 1)
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .start();
         this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         this.INTERSECTEDLEFT = undefined;
       }

@@ -34,13 +34,13 @@ export const WEBVR = {
       button.onclick = function() {
         sphereInside.rotation.set(0, 0, 0, "XYZ");
         sphereAngle.rotation.set(0, 0, 0, "XYZ");
-        camera.add(crosshair);
         device.isPresenting
           ? device.exitPresent()
           : device.requestPresent([{ source: renderer.domElement }]);
       };
 
       renderer.vr.setDevice(device);
+      console.log(device);
     }
 
     function showEnterXR(device) {
@@ -174,7 +174,11 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
-          camera.remove(camera.children[0]);
+          if (event.detail.display.isPresenting === true) {
+            camera.add(crosshair);
+          } else {
+            camera.remove(camera.children[0]);
+          }
         },
         false
       );

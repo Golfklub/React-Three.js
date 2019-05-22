@@ -75,6 +75,8 @@ class App extends Component {
         controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
+        camera.remove(camera.children[0]);
+
         // this.startAnimationLoop();
       }
     });
@@ -84,7 +86,6 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    // this.camera.add(crosshair);
     this.scene.add(camera);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);
@@ -96,6 +97,7 @@ class App extends Component {
   ischeck;
 
   animate = time => {
+    // console.log(this.state.controls);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);

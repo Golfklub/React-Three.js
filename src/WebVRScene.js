@@ -119,10 +119,11 @@ class App extends Component {
             .to({ x: 20, y: 20, z: 1 }, 1500)
             .easing(TWEEN.Easing.Quadratic.Out)
             .start();
-          for (let index = 0; index < contentBox.children.length; ) {
-            contentBox.remove(contentBox.children[0]);
-          }
+
           this.longClick = setTimeout(() => {
+            for (let index = 0; index < contentBox.children.length; ) {
+              contentBox.remove(contentBox.children[0]);
+            }
             Content(this.contentIndex).map(res => contentBox.add(res));
             this.contentIndex++;
           }, 1500);
@@ -156,10 +157,11 @@ class App extends Component {
             .to({ x: 20, y: 20, z: 1 }, 1500)
             .easing(TWEEN.Easing.Quadratic.Out)
             .start();
-        for (let index = 0; index < contentBox.children.length; ) {
-          contentBox.remove(contentBox.children[0]);
-        }
+
         this.longClick = setTimeout(() => {
+          for (let index = 0; index < contentBox.children.length; ) {
+            contentBox.remove(contentBox.children[0]);
+          }
           Content(this.contentIndex).map(res => contentBox.add(res));
           this.contentIndex--;
         }, 1500);

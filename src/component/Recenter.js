@@ -1,6 +1,4 @@
-import * as THREE from "three";
 import { sphereInside, sphereAngle } from "./ShowRoomSky";
-import { rootContent } from "./RootContent";
 
 export const Recenter = (renderer, controls, type) => {
   function showRecenter(device) {

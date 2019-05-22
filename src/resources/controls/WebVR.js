@@ -174,9 +174,7 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
-          button.textContent = event.display.isPresenting
-            ? "EXIT VR"
-            : "ENTER VR";
+          camera.remove(camera.children[0]);
         },
         false
       );

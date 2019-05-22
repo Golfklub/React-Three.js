@@ -7,7 +7,7 @@
 
 import { sphereInside, sphereAngle } from "../../component/ShowRoomSky";
 import { camera } from "../../component/sceneSetting";
-import { crosshair } from "../../component/crosshair";
+import { crosshair, loadingCursor } from "../../component/crosshair";
 
 export const WEBVR = {
   createButton: function(renderer, options) {
@@ -32,6 +32,7 @@ export const WEBVR = {
       };
 
       button.onclick = function() {
+        loadingCursor.scale.set(1, 1, 1);
         // sphereInside.rotation.set(0, 0, 0, "XYZ");
         // sphereAngle.rotation.set(0, 0, 0, "XYZ");
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;

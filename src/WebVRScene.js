@@ -129,6 +129,7 @@ class App extends Component {
     } else {
       if (this.INTERSECTEDRIGHT) {
         clearTimeout(this.longClick);
+        TWEEN.removeAll();
         loadingCursor.scale.set(1, 1, 1);
         this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
         this.INTERSECTEDRIGHT = undefined;
@@ -149,7 +150,7 @@ class App extends Component {
           this.contentIndex < contentList.length + 1 &&
           this.contentIndex > 0
         ) {
-          var left = new TWEEN.Tween(loadingCursor.scale)
+          const tween = new TWEEN.Tween(loadingCursor.scale)
             .to({ x: 20, y: 20, z: 1 }, 1500)
             .easing(TWEEN.Easing.Quadratic.Out)
             .start();
@@ -165,6 +166,7 @@ class App extends Component {
     } else {
       if (this.INTERSECTEDLEFT) {
         clearTimeout(this.longClick);
+        TWEEN.removeAll();
         loadingCursor.scale.set(1, 1, 1);
         this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         this.INTERSECTEDLEFT = undefined;

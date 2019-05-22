@@ -7,6 +7,7 @@ export const Recenter = (renderer, controls, type) => {
     button.style.cursor = "pointer";
     button.style.left = "1%";
     // button.style.width = "100px";
+    button.style.bottom = "1%";
 
     button.textContent = "RECENTER";
 
@@ -37,7 +38,7 @@ export const Recenter = (renderer, controls, type) => {
 
   function stylizeElement(element) {
     element.style.position = "absolute";
-    element.style.bottom = "20px";
+    element.style.bottom = "1%";
     element.style.padding = "12px 6px";
     element.style.border = "1px solid #fff";
     element.style.borderRadius = "4px";

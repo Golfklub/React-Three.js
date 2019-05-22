@@ -72,6 +72,8 @@ export const WEBVR = {
 
       button.style.cursor = "pointer";
       button.style.right = "1";
+      button.style.bottom = "1%";
+
       // button.style.width = "5wh";
 
       button.textContent = "ENTER VR";
@@ -104,6 +106,7 @@ export const WEBVR = {
 
       button.style.cursor = "auto";
       button.style.right = "1%";
+      button.style.bottom = "1%";
       // button.style.width = "10%";
       button.textContent = "VR NOT FOUND";
       button.onmouseenter = null;
@@ -116,7 +119,7 @@ export const WEBVR = {
 
     function stylizeElement(element) {
       element.style.position = "absolute";
-      element.style.bottom = "20px";
+      element.style.bottom = "1%";
       element.style.padding = "12px 6px";
       element.style.border = "1px solid #fff";
       element.style.borderRadius = "4px";

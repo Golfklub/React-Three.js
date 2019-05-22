@@ -166,10 +166,9 @@ class App extends Component {
       }
     } else {
       if (this.INTERSECTEDLEFT) {
-        loadingCursor.scale.set(1, 1, 1);
-
-        this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         clearTimeout(this.longClick);
+        loadingCursor.scale.set(1, 1, 1);
+        this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         this.INTERSECTEDLEFT = undefined;
       }
     }

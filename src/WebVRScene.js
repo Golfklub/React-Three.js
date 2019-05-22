@@ -124,8 +124,8 @@ class App extends Component {
           }
           this.longClick = setTimeout(() => {
             Content(this.contentIndex).map(res => contentBox.add(res));
+            this.contentIndex++;
           }, 1500);
-          this.contentIndex++;
         }
       }
     } else {
@@ -161,8 +161,8 @@ class App extends Component {
         }
         this.longClick = setTimeout(() => {
           Content(this.contentIndex).map(res => contentBox.add(res));
+          this.contentIndex--;
         }, 1500);
-        this.contentIndex--;
       }
     } else {
       if (this.INTERSECTEDLEFT) {

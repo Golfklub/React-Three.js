@@ -114,14 +114,14 @@ class App extends Component {
         this.objZ = intersectsRight[0].object.scale.z;
         intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
         if (this.contentIndex < contentList.length - 1) {
-          var tween = new TWEEN.Tween(loadingCursor.scale) // ใส่ค่าที่ต้องการจะเปลี่ยนในนี้
-            .to({ x: 20, y: 20, z: 1 }, 1500) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
-            .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
-            .start();
           this.longClick = setTimeout(() => {
             for (let index = 0; index < contentBox.children.length; ) {
               contentBox.remove(contentBox.children[0]);
             }
+            var tween = new TWEEN.Tween(loadingCursor.scale)
+              .to({ x: 20, y: 20, z: 1 }, 1500)
+              .easing(TWEEN.Easing.Quadratic.Out)
+              .start();
             Content(this.contentIndex).map(res => contentBox.add(res));
           }, 1500);
           this.contentIndex++;
@@ -151,17 +151,16 @@ class App extends Component {
           this.contentIndex < contentList.length + 1 &&
           this.contentIndex !== 0
         )
-          var tween = new TWEEN.Tween(loadingCursor.scale) // ใส่ค่าที่ต้องการจะเปลี่ยนในนี้
-            .to({ x: 20, y: 20, z: 1 }, 1500) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
-            .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
-            .start();
-        // console.log(this.contentIndex);
-        this.longClick = setTimeout(() => {
-          for (let index = 0; index < contentBox.children.length; ) {
-            contentBox.remove(contentBox.children[0]);
-          }
-          Content(this.contentIndex).map(res => contentBox.add(res));
-        }, 1500);
+          this.longClick = setTimeout(() => {
+            for (let index = 0; index < contentBox.children.length; ) {
+              contentBox.remove(contentBox.children[0]);
+            }
+            var tween = new TWEEN.Tween(loadingCursor.scale)
+              .to({ x: 20, y: 20, z: 1 }, 1500)
+              .easing(TWEEN.Easing.Quadratic.Out)
+              .start();
+            Content(this.contentIndex).map(res => contentBox.add(res));
+          }, 1500);
         this.contentIndex--;
       }
     } else {

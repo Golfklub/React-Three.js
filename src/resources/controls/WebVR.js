@@ -32,8 +32,8 @@ export const WEBVR = {
       };
 
       button.onclick = function() {
-        sphereInside.rotation.set(0, 0, 0, "XYZ");
-        sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        // sphereInside.rotation.set(0, 0, 0, "XYZ");
+        // sphereAngle.rotation.set(0, 0, 0, "XYZ");
         device.isPresenting
           ? device.exitPresent()
           : device.requestPresent([{ source: renderer.domElement }]);

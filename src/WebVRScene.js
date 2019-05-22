@@ -178,19 +178,6 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    this.setState({
-      // rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
-      // rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
-      // rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180
-      // skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
-      // skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
-      // skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
-    });
-    // console.log(
-    //   this.state.controls.object.rotation.x,
-    //   this.state.controls.object.rotation.y,
-    //   this.state.controls.object.rotation.z
-    // );
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

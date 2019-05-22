@@ -22,7 +22,7 @@ import { DeviceOrientationControls } from "./resources/controls/DeviceOrientatio
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
 import { scene, camera, raycaster } from "./component/sceneSetting";
-import { loadingCursor } from "./component/crosshair";
+import { loadingCursor, crosshair } from "./component/crosshair";
 import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
 
@@ -32,7 +32,7 @@ class App extends Component {
   state = { controls: "", device: "" };
   INTERSECTEDRIGHT;
   INTERSECTEDLEFT;
-  contentIndex = contentIndex;
+  contentIndex = 0;
 
   componentDidMount() {
     this.sceneSetup();
@@ -76,7 +76,7 @@ class App extends Component {
         controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        camera.remove(camera.children[0]);
+        // camera.remove(camera.children[0]);
 
         // this.startAnimationLoop();
       }
@@ -87,6 +87,7 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
+    camera.add(crosshair);
     this.scene.add(camera);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);
@@ -100,13 +101,10 @@ class App extends Component {
   animate = time => {
     // console.log(this.state.controls);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);
     if (intersectsRight.length > 0) {
       if (this.INTERSECTEDRIGHT != intersectsRight[0].object) {
-        // console.log(this.contentIndex);
-
         if (this.INTERSECTEDRIGHT)
           this.INTERSECTEDRIGHT = intersectsRight[0].object;
         this.INTERSECTEDRIGHT = intersectsRight[0].object;
@@ -115,17 +113,16 @@ class App extends Component {
         this.objZ = intersectsRight[0].object.scale.z;
         intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
         if (this.contentIndex < contentList.length - 1) {
-          var tween = new TWEEN.Tween(loadingCursor.scale)
+          var right = new TWEEN.Tween(loadingCursor.scale)
             .to({ x: 20, y: 20, z: 1 }, 1500)
             .easing(TWEEN.Easing.Quadratic.Out)
             .start();
-
           this.longClick = setTimeout(() => {
             for (let index = 0; index < contentBox.children.length; ) {
               contentBox.remove(contentBox.children[0]);
             }
-            Content(this.contentIndex).map(res => contentBox.add(res));
             this.contentIndex++;
+            Content(this.contentIndex).map(res => contentBox.add(res));
           }, 1500);
         }
       }
@@ -141,7 +138,6 @@ class App extends Component {
     let intersectsLeft = raycaster.intersectObjects(leftButton.children);
     if (intersectsLeft.length > 0) {
       if (this.INTERSECTEDLEFT != intersectsLeft[0].object) {
-        // console.log(this.contentIndex);
         if (this.INTERSECTEDLEFT)
           this.INTERSECTEDLEFT = intersectsLeft[0].object;
         this.INTERSECTEDLEFT = intersectsLeft[0].object;
@@ -151,28 +147,25 @@ class App extends Component {
         intersectsLeft[0].object.scale.set(1.2, 1.2, 1.2);
         if (
           this.contentIndex < contentList.length + 1 &&
-          this.contentIndex !== 0
-        )
-          var tween = new TWEEN.Tween(loadingCursor.scale)
+          this.contentIndex > 0
+        ) {
+          var left = new TWEEN.Tween(loadingCursor.scale)
             .to({ x: 20, y: 20, z: 1 }, 1500)
             .easing(TWEEN.Easing.Quadratic.Out)
             .start();
-
-        this.longClick = setTimeout(() => {
-          for (let index = 0; index < contentBox.children.length; ) {
-            contentBox.remove(contentBox.children[0]);
-          }
-          Content(this.contentIndex).map(res => contentBox.add(res));
-          this.contentIndex--;
-        }, 1500);
+          this.longClick = setTimeout(() => {
+            for (let index = 0; index < contentBox.children.length; ) {
+              contentBox.remove(contentBox.children[0]);
+            }
+            this.contentIndex--;
+            Content(this.contentIndex).map(res => contentBox.add(res));
+          }, 1500);
+        }
       }
     } else {
       if (this.INTERSECTEDLEFT) {
         clearTimeout(this.longClick);
-        var tween = new TWEEN.Tween(loadingCursor.scale)
-          .to({ x: 1, y: 1, z: 1 }, 1)
-          .easing(TWEEN.Easing.Quadratic.Out)
-          .start();
+        loadingCursor.scale.set(1, 1, 1);
         this.INTERSECTEDLEFT.scale.set(this.objX, this.objY, this.objZ);
         this.INTERSECTEDLEFT = undefined;
       }
@@ -182,6 +175,7 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    console.log(this.contentIndex);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

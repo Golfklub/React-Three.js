@@ -32,10 +32,16 @@ export const WEBVR = {
       };
 
       button.onclick = function() {
-        // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
-        // sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-        sphereInside.rotation.set(0, 0, 0, "XYZ");
-        sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        // sphereInside.rotation.set(0, 0, 0, "XYZ");
+        // sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/android/i.test(userAgent)) {
+          console.log("Android");
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          sphereInside.rotation.set(0, 0, 0, "XYZ");
+          sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        }
+
         device.isPresenting
           ? device.exitPresent()
           : device.requestPresent([{ source: renderer.domElement }]);
@@ -179,11 +185,11 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
-          if (event.detail.display.isPresenting === true) {
-            camera.add(crosshair);
-          } else {
-            camera.remove(camera.children[0]);
-          }
+          // if (event.detail.display.isPresenting === true) {
+          //   camera.add(crosshair);
+          // } else {
+          //   // camera.remove(camera.children[0]);
+          // }
         },
         false
       );

@@ -76,7 +76,7 @@ class App extends Component {
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
-        // controls.enableZoom = false;
+        controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
         // this.startAnimationLoop();

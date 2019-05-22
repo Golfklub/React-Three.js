@@ -21,10 +21,11 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
+        // sphereAngle.rotation.set(0, 0, 0);
         // controls.object.position.set(0, 0, 0);
-        // controls.object.position.x = 0;
+        controls.object.position.x = 0;
 
-        controls.object.position.y = 0;
+        controls.object.position.y = 1.6;
         // controls.object.position.z = 0;
       } else if (type === "vr") {
         sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");

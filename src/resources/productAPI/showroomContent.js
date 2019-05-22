@@ -70,7 +70,7 @@ export const contentList = [
     },
     {
       x: 0.5,
-      src: "https://i.imgur.com/4cAV8S4.png",
+      // src: "https://i.imgur.com/4cAV8S4.png",
       z: -1.474,
       rotation: -15
     }
@@ -108,7 +108,7 @@ export const contentList = [
     },
     {
       x: 0.5,
-      src: "https://i.imgur.com/X4HywVa.png",
+      // src: "https://i.imgur.com/X4HywVa.png",
       z: -1.474,
       rotation: -15
     }

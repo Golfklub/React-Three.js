@@ -100,6 +100,8 @@ class App extends Component {
   ischeck;
 
   animate = time => {
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);
     if (intersectsRight.length > 0) {

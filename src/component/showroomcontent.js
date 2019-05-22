@@ -23,3 +23,5 @@ export const Content = index => {
     return boxs;
   });
 };
+
+export const contentBox = new THREE.Object3D();

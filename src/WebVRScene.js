@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
-import { Content } from "./component/showroomcontent";
+import { Content, contentBox } from "./component/showroomcontent";
 import WebVRPolyfill from "webvr-polyfill";
 import {
   showroomsky,
@@ -11,8 +11,6 @@ import {
 import { circleframe, logo } from "./component/Showroomlogo";
 import { config } from "./component/configWebVR";
 import {
-  rightNavigate,
-  leftNavigate,
   contentIndex,
   NavigateButton,
   rightButton,
@@ -23,13 +21,11 @@ import { WEBVR } from "./resources/controls/WebVR";
 import { DeviceOrientationControls } from "./resources/controls/DeviceOrientationControls";
 import { Interaction } from "three.interaction";
 import { Recenter } from "./component/Recenter";
-import { rotationY } from "./RotationY";
 import { scene, camera, raycaster } from "./component/sceneSetting";
-import { rootContent } from "./component/RootContent";
-import { crosshair, loadingCursor } from "./component/crosshair";
-import Reticulum from "./resources/reticulum";
+import { loadingCursor } from "./component/crosshair";
 import { contentList } from "./resources/productAPI/showroomContent";
 var TWEEN = require("@tweenjs/tween.js");
+
 class App extends Component {
   polyfill = new WebVRPolyfill(config);
   scene = new THREE.Scene();
@@ -91,10 +87,10 @@ class App extends Component {
     // this.camera.add(crosshair);
     this.scene.add(camera);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
-    sphereInside.add(circleframe, Toolbar, logo, NavigateButton);
+    sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);
     sphereAngle.position.set(0, 1.6, 0);
 
-    Content(contentIndex).map(res => sphereInside.add(res));
+    Content(contentIndex).map(res => contentBox.add(res));
   };
   lastTime = 0;
   ischeck;
@@ -120,10 +116,12 @@ class App extends Component {
             .to({ x: 20, y: 20, z: 1 }, 1500) // ใส่ค่าที่ต้องการให้เป็นตามด้วยเวลาในหน่อยมิลลิวินาทีเช่น .to({x:1,y:1,z:1},1000) คือการเปลี่ยนค่า x,y,z เป็น 1 ในระยะเวลา 1 วินาที
             .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
             .start();
-          this.longClick = setTimeout(
-            () => Content(this.contentIndex).map(res => sphereInside.add(res)),
-            1500
-          );
+          this.longClick = setTimeout(() => {
+            for (let index = 0; index < contentBox.children.length; ) {
+              contentBox.remove(contentBox.children[0]);
+            }
+            Content(this.contentIndex).map(res => contentBox.add(res));
+          }, 1500);
           this.contentIndex++;
         }
       }
@@ -156,10 +154,12 @@ class App extends Component {
             .easing(TWEEN.Easing.Quadratic.Out) // เลือกรูปแบบอนิเมชั่นที่ต้องการดูได้ใน https://www.createjs.com/demos/tweenjs/tween_sparktable
             .start();
         // console.log(this.contentIndex);
-        this.longClick = setTimeout(
-          () => Content(this.contentIndex).map(res => sphereInside.add(res)),
-          1500
-        );
+        this.longClick = setTimeout(() => {
+          for (let index = 0; index < contentBox.children.length; ) {
+            contentBox.remove(contentBox.children[0]);
+          }
+          Content(this.contentIndex).map(res => contentBox.add(res));
+        }, 1500);
         this.contentIndex--;
       }
     } else {

@@ -1,10 +1,9 @@
 import * as THREE from "three";
 import { LinearFilter } from "three";
 import { Interaction } from "three.interaction";
-import { boxA } from "./showroomcontent";
+import { boxA, contentBox } from "./showroomcontent";
 import { Content } from "./showroomcontent";
 import { contentList } from "../resources/productAPI/showroomContent";
-import { showroomsky } from "../component/ShowRoomSky";
 import { scene } from "./sceneSetting";
 var TWEEN = require("@tweenjs/tween.js");
 
@@ -65,14 +64,14 @@ rightNavigate.on("mouseout", function(ev) {
 rightNavigate.on("mousedown", function(ev) {
   rightNavigate.scale.set(0.9, 0.9, 0.9);
   if (contentIndex < contentList.length - 1) {
-    Content(contentIndex).map(res => {
-      
-    });
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
     contentIndex++;
-    showroomsky.remove(Content);
-    // Content(contentIndex).map(res => {
-    //   showroomsky.add(res);
-    // });
+    contentBox.remove(Content);
+    Content(contentIndex).map(res => {
+      contentBox.add(res);
+    });
   }
   // Content.map(res => {
   //   var tween = new TWEEN.Tween(res.scale) // Create a new tween that modifies 'coords'.
@@ -111,10 +110,12 @@ leftNavigate.on("mousedown", function(ev) {
   leftNavigate.scale.set(0.9, 0.9, 0.9);
 
   if (contentIndex > 0) {
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
     contentIndex--;
-    showroomsky.remove(Content);
     Content(contentIndex).map(res => {
-      showroomsky.add(res);
+      contentBox.add(res);
     });
   }
 });

@@ -129,9 +129,9 @@ class App extends Component {
       }
     } else {
       if (this.INTERSECTEDRIGHT) {
+        clearTimeout(this.longClick);
         loadingCursor.scale.set(1, 1, 1);
         this.INTERSECTEDRIGHT.scale.set(this.objX, this.objY, this.objZ);
-        clearTimeout(this.longClick);
         this.INTERSECTEDRIGHT = undefined;
       }
     }

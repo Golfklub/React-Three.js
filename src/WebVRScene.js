@@ -44,6 +44,7 @@ class App extends Component {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
+    WEBVR.createButton(this.renderer, this.state.controls);
   }
 
   sceneSetup = async () => {
@@ -114,14 +115,14 @@ class App extends Component {
         this.objZ = intersectsRight[0].object.scale.z;
         intersectsRight[0].object.scale.set(1.2, 1.2, 1.2);
         if (this.contentIndex < contentList.length - 1) {
+          var tween = new TWEEN.Tween(loadingCursor.scale)
+            .to({ x: 20, y: 20, z: 1 }, 1500)
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .start();
           this.longClick = setTimeout(() => {
             for (let index = 0; index < contentBox.children.length; ) {
               contentBox.remove(contentBox.children[0]);
             }
-            var tween = new TWEEN.Tween(loadingCursor.scale)
-              .to({ x: 20, y: 20, z: 1 }, 1500)
-              .easing(TWEEN.Easing.Quadratic.Out)
-              .start();
             Content(this.contentIndex).map(res => contentBox.add(res));
           }, 1500);
           this.contentIndex++;
@@ -151,16 +152,16 @@ class App extends Component {
           this.contentIndex < contentList.length + 1 &&
           this.contentIndex !== 0
         )
-          this.longClick = setTimeout(() => {
-            for (let index = 0; index < contentBox.children.length; ) {
-              contentBox.remove(contentBox.children[0]);
-            }
-            var tween = new TWEEN.Tween(loadingCursor.scale)
-              .to({ x: 20, y: 20, z: 1 }, 1500)
-              .easing(TWEEN.Easing.Quadratic.Out)
-              .start();
-            Content(this.contentIndex).map(res => contentBox.add(res));
-          }, 1500);
+          var tween = new TWEEN.Tween(loadingCursor.scale)
+            .to({ x: 20, y: 20, z: 1 }, 1500)
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .start();
+        this.longClick = setTimeout(() => {
+          for (let index = 0; index < contentBox.children.length; ) {
+            contentBox.remove(contentBox.children[0]);
+          }
+          Content(this.contentIndex).map(res => contentBox.add(res));
+        }, 1500);
         this.contentIndex--;
       }
     } else {
@@ -177,6 +178,19 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    this.setState({
+      // rotationx: (this.state.controls.object.rotation.x / Math.PI) * 180,
+      // rotationy: (this.state.controls.object.rotation.y / Math.PI) * 180,
+      // rotationz: (this.state.controls.object.rotation.z / Math.PI) * 180
+      // skyX: (showroomsky.rotation.x / Math.PI) * 180, //   skyX: (showroomsky.rotation.x / Math.PI) * 180,
+      // skyy: (showroomsky.rotation.y / Math.PI) * 180, //   skyy: (showroomsky.rotation.y / Math.PI) * 180,
+      // skyz: (showroomsky.rotation.z / Math.PI) * 180 //   skyz: (showroomsky.rotation.z / Math.PI) * 180
+    });
+    // console.log(
+    //   this.state.controls.object.rotation.x,
+    //   this.state.controls.object.rotation.y,
+    //   this.state.controls.object.rotation.z
+    // );
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

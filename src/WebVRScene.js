@@ -87,7 +87,7 @@ class App extends Component {
   };
 
   addCustomSceneObjects = () => {
-    camera.add(crosshair);
+    // camera.add(crosshair);
     this.scene.add(camera);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);

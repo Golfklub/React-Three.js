@@ -36,16 +36,16 @@ export const WEBVR = {
         console.log(window.innerHeight, window.innerWidth);
         loadingCursor.scale.set(1, 1, 1);
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(userAgent)) {
-          if (screen.orientation !== "portrait-primary") {
-            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
-          } else {
-            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
-          }
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          sphereInside.rotation.set(0, 0, 0, "XYZ");
-          sphereAngle.rotation.set(0, 0, 0, "XYZ");
-        }
+        // if (/android/i.test(userAgent)) {
+        //   if (screen.orientation !== "portrait-primary") {
+        //     sphereInside.rotation.set(0, 1.57, 0, "XYZ");
+        //   } else {
+        //     sphereInside.rotation.set(0, 1.57, 0, "XYZ");
+        //   }
+        // } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        //   sphereInside.rotation.set(0, 0, 0, "XYZ");
+        //   sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        // }
 
         device.isPresenting
           ? device.exitPresent()
@@ -199,7 +199,7 @@ export const WEBVR = {
               if (screen.orientation === "portrait-primary") {
                 sphereInside.rotation.set(0, 0, 0, "XYZ");
               } else {
-                sphereInside.rotation.set(0, -1.57, 0, "XYZ");
+                sphereAngle.rotation.set(0, 3.2, 0, "XYZ");
               }
             } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
               sphereInside.rotation.set(0, 0, 0, "XYZ");

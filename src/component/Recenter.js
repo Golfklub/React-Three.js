@@ -24,7 +24,7 @@ export const Recenter = (renderer, controls, type) => {
         controls.object.position.y = 1.6;
       } else if (type === "vr") {
         sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
-        sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+        // sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
       }
     };
     renderer.vr.setDevice(device);

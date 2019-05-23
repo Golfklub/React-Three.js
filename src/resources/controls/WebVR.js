@@ -190,8 +190,21 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
+          var userAgent =
+            navigator.userAgent || navigator.vendor || window.opera;
+
           if (event.detail.display.isPresenting === true) {
             camera.add(crosshair);
+            if (/android/i.test(userAgent)) {
+              if (screen.orientation !== "portrait-primary") {
+                sphereInside.rotation.set(0, 1.57, 0, "XYZ");
+              } else {
+                sphereInside.rotation.set(0, 0, 0, "XYZ");
+              }
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+              sphereInside.rotation.set(0, 0, 0, "XYZ");
+              sphereAngle.rotation.set(0, 0, 0, "XYZ");
+            }
           } else {
             camera.remove(camera.children[0]);
           }

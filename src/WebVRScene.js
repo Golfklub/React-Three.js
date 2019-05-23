@@ -114,6 +114,7 @@ class App extends Component {
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);
     sphereAngle.position.set(0, 1.6, 0);
+    // sphereInside.rotation.set(0, 1.56, 0);
 
     Content(contentIndex).map(res => contentBox.add(res));
   };

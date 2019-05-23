@@ -33,11 +33,10 @@ export const WEBVR = {
 
       button.onclick = function() {
         loadingCursor.scale.set(1, 1, 1);
-        // sphereInside.rotation.set(0, 0, 0, "XYZ");
-        // sphereAngle.rotation.set(0, 0, 0, "XYZ");
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-          console.log("Android");
+          sphereInside.rotation.set(0, 0, 0, "XYZ");
+          sphereAngle.rotation.set(0, 0, 0, "XYZ");
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");
           sphereAngle.rotation.set(0, 0, 0, "XYZ");
@@ -186,11 +185,11 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
-          // if (event.detail.display.isPresenting === true) {
-          //   camera.add(crosshair);
-          // } else {
-          //   // camera.remove(camera.children[0]);
-          // }
+          if (event.detail.display.isPresenting === true) {
+            camera.add(crosshair);
+          } else {
+            camera.remove(camera.children[0]);
+          }
         },
         false
       );

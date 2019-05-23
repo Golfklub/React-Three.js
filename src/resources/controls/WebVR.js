@@ -35,6 +35,7 @@ export const WEBVR = {
         loadingCursor.scale.set(1, 1, 1);
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
+          console.log(device);
           sphereInside.rotation.set(0, 0, 0, "XYZ");
           sphereAngle.rotation.set(0, 0, 0, "XYZ");
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {

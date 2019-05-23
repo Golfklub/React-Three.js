@@ -63,13 +63,12 @@ class App extends Component {
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
-        this.renderer.vr.enabled = true;
         let controls = new DeviceOrientationControls(this.camera);
+        this.renderer.vr.enabled = true;
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-        this.renderer.vr.enabled = true;
+        // sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
@@ -99,7 +98,6 @@ class App extends Component {
   ischeck;
 
   animate = time => {
-    // console.log(this.state.controls);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);
@@ -177,7 +175,6 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
-    console.log(this.contentIndex);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

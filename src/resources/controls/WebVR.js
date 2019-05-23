@@ -38,11 +38,21 @@ export const WEBVR = {
         if (/android/i.test(userAgent)) {
           if (screen.orientation.type === "portrait-primary") {
             console.log(screen.orientation.type);
-            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereInside.rotation.set(
+              0,
+              controls.object.rotation.y - 1.57,
+              0,
+              "XYZ"
+            );
           } else {
             console.log(controls);
             console.log(screen.orientation.type);
-            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereInside.rotation.set(
+              0,
+              controls.object.rotation.y - 1.57,
+              0,
+              "XYZ"
+            );
             // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
             // sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           }

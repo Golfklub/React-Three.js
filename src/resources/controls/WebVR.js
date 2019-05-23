@@ -207,10 +207,11 @@ export const WEBVR = {
         function(event) {
           var userAgent =
             navigator.userAgent || navigator.vendor || window.opera;
-
           if (event.detail.display.isPresenting === true) {
             camera.add(crosshair);
           } else {
+            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
             camera.remove(camera.children[0]);
           }
         },

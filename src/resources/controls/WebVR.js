@@ -33,15 +33,16 @@ export const WEBVR = {
       };
 
       button.onclick = function() {
-        console.log(window.innerHeight, window.innerWidth);
         loadingCursor.scale.set(1, 1, 1);
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-          if (screen.orientation === "portrait-primary") {
+          if (screen.orientation.type === "portrait-primary") {
+            console.log(screen.orientation.type);
             sphereInside.rotation.set(0, 0, 0, "XYZ");
           } else {
-            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+            console.log(screen.orientation.type);
+            // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+            // sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");
@@ -54,7 +55,6 @@ export const WEBVR = {
       };
 
       renderer.vr.setDevice(device);
-      console.log(device);
     }
 
     function showEnterXR(device) {

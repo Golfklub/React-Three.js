@@ -10,7 +10,7 @@ import { camera } from "../../component/sceneSetting";
 import { crosshair, loadingCursor } from "../../component/crosshair";
 
 export const WEBVR = {
-  createButton: function(renderer, options) {
+  createButton: function(renderer, controls, options) {
     if (options && options.frameOfReferenceType) {
       renderer.vr.setFrameOfReferenceType(options.frameOfReferenceType);
     }
@@ -39,8 +39,8 @@ export const WEBVR = {
           if (window.innerHeight > window.innerWidth) {
             sphereInside.rotation.set(0, 3.4, 0, "XYZ");
           } else {
-            // sphereInside.rotation.set(0, 0, 0, "XYZ");
-            // sphereAngle.rotation.set(0, 0, 0, "XYZ");
+            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");

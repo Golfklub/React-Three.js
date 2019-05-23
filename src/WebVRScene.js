@@ -46,14 +46,16 @@ class App extends Component {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
-    WEBVR.createButton(this.renderer, this.state.controls);
+    document.body.appendChild(
+      WEBVR.createButton(this.renderer, this.state.controls)
+    );
   }
 
-  checkScreenOrientation=()=>{
+  checkScreenOrientation = () => {
     if (window.innerHeight > window.innerWidth) {
-      scene.add()
+      scene.add();
     }
-  }
+  };
 
   sceneSetup = async () => {
     this.scene = scene;
@@ -65,7 +67,7 @@ class App extends Component {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     this.mount.appendChild(this.renderer.domElement);
-    document.body.appendChild(WEBVR.createButton(this.renderer));
+
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
     this.checkDevice();
     this.renderer.setAnimationLoop(() => {

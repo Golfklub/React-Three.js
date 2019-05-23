@@ -68,7 +68,7 @@ class App extends Component {
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        // sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+        sphereInside.rotation.set(0, 0, 0, "XYZ");
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });

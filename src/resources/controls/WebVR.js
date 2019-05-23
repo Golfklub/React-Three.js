@@ -216,12 +216,7 @@ export const WEBVR = {
               0,
               "XYZ"
             );
-            sphereAngle.rotation.set(
-              0,
-              controls.object.rotation.y + 1.57,
-              0,
-              "XYZ"
-            );
+            sphereAngle.rotation.set(0, 0, 0, "XYZ");
             camera.remove(camera.children[0]);
           }
         },

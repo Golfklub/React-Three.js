@@ -210,8 +210,18 @@ export const WEBVR = {
           if (event.detail.display.isPresenting === true) {
             camera.add(crosshair);
           } else {
-            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
-            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereInside.rotation.set(
+              controls.object.rotation.x + 1.57,
+              0,
+              0,
+              "XYZ"
+            );
+            sphereAngle.rotation.set(
+              0,
+              controls.object.rotation.y + 1.57,
+              0,
+              "XYZ"
+            );
             camera.remove(camera.children[0]);
           }
         },

@@ -59,7 +59,13 @@ class App extends Component {
     this.mount.appendChild(this.renderer.domElement);
     document.body.appendChild(WEBVR.createButton(this.renderer));
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
+    this.checkDevice();
+    this.renderer.setAnimationLoop(() => {
+      this.renderer.render(this.scene, this.camera);
+    });
+  };
 
+  checkDevice = () => {
     navigator.getVRDisplays().then(VRDisplay => {
       if (VRDisplay.length) {
         let vrDisplay = VRDisplay[0];
@@ -87,9 +93,6 @@ class App extends Component {
         this.startAnimationLoop();
       }
     });
-    this.renderer.setAnimationLoop(() => {
-      this.renderer.render(this.scene, this.camera);
-    });
   };
 
   addCustomSceneObjects = () => {
@@ -103,6 +106,7 @@ class App extends Component {
   };
 
   animate = time => {
+    this.checkDevice();
     // this.renderer.setSize(window.innerWidth, window.innerHeight);
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);

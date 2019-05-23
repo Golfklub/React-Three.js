@@ -39,7 +39,7 @@ export const WEBVR = {
           if (window.innerHeight > window.innerWidth) {
             sphereInside.rotation.set(0, 3.4, 0, "XYZ");
           } else {
-            sphereInside.rotation.set(0, 0, 0, "XYZ");
+            // sphereInside.rotation.set(0, 0, 0, "XYZ");
             // sphereAngle.rotation.set(0, 0, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {

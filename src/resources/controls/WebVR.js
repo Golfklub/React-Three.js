@@ -39,6 +39,7 @@ export const WEBVR = {
           if (window.innerHeight > window.innerWidth) {
             sphereInside.rotation.set(0, 3.4, 0, "XYZ");
           } else {
+            // console.log(controls);
             sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
             sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           }

@@ -92,7 +92,8 @@ class App extends Component {
           if (window.innerHeight > window.innerWidth) {
             sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           } else {
-            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
@@ -116,7 +117,6 @@ class App extends Component {
     sphereAngle.position.set(0, 1.6, 0);
     // sphereAngle.rotation.set(0, 3.2, 0);
     // sphereInside.rotation.set(0, 3.2, 0);
-
 
     Content(contentIndex).map(res => contentBox.add(res));
   };

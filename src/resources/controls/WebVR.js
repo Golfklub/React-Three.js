@@ -212,7 +212,7 @@ export const WEBVR = {
           } else {
             sphereInside.rotation.set(
               0,
-              controls.object.rotation.y + 1.57,
+              controls.object.rotation.y - 1.57,
               0,
               "XYZ"
             );

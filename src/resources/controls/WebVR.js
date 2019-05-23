@@ -40,8 +40,8 @@ export const WEBVR = {
             sphereInside.rotation.set(0, 3.4, 0, "XYZ");
           } else {
             // console.log(controls);
-            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
-            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
+            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");

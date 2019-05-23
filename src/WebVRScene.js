@@ -41,6 +41,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    // this.checkDevice();
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
@@ -106,7 +107,7 @@ class App extends Component {
   };
 
   animate = time => {
-    this.checkDevice();
+    // this.checkDevice();
     // this.renderer.setSize(window.innerWidth, window.innerHeight);
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);

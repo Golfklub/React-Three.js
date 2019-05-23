@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { Component } from "react";
 import * as THREE from "three";
 import OrbitControls from "three-orbitcontrols";
@@ -89,7 +90,7 @@ class App extends Component {
         this.startAnimationLoop();
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-          if (window.innerHeight > window.innerWidth) {
+          if (screen.orientation.type === "portrait-primary") {
             sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           } else {
             sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");

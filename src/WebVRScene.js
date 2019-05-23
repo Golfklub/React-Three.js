@@ -68,9 +68,14 @@ class App extends Component {
         this.setState({ controls: controls, device: "vr" });
         vrDisplay.requestAnimationFrame(this.animate);
         this.startAnimationLoop();
-        if (window.innerHeight > window.innerWidth) {
-          sphereInside.rotation.set(0, 1.57, 0, "XYZ");
-        } else {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/android/i.test(userAgent)) {
+          if (window.innerHeight > window.innerWidth) {
+            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
+          } else {
+            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+          }
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
         }
       } else {

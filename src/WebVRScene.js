@@ -84,9 +84,7 @@ class App extends Component {
         controls.enableZoom = false;
         controls.target.set(0, 1.6, -0.0001);
         requestAnimationFrame(this.animate);
-        // camera.remove(camera.children[0]);
-
-        // this.startAnimationLoop();
+        this.startAnimationLoop();
       }
     });
     this.renderer.setAnimationLoop(() => {

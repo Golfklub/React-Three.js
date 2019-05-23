@@ -40,8 +40,8 @@ export const WEBVR = {
           if (screen.orientation === "portrait-primary") {
             sphereInside.rotation.set(0, 0, 0, "XYZ");
           } else {
-            sphereInside.rotation.x = 0;
-            sphereAngle.rotation.y = 0;
+            sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
+            sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");
@@ -200,8 +200,18 @@ export const WEBVR = {
             var userAgent =
               navigator.userAgent || navigator.vendor || window.opera;
             if (/android/i.test(userAgent)) {
-              sphereInside.rotation.x = controls.object.rotation.x;
-              sphereAngle.rotation.y = controls.object.rotation.y;
+              sphereInside.rotation.set(
+                0,
+                controls.object.rotation.y,
+                0,
+                "XYZ"
+              );
+              sphereInside.rotation.set(
+                controls.object.rotation.x,
+                0,
+                0,
+                "XYZ"
+              );
             }
             camera.remove(camera.children[0]);
           }

@@ -35,6 +35,7 @@ class App extends Component {
   contentIndex = 0;
 
   componentDidMount() {
+    this.checkScreenOrientation();
     this.sceneSetup();
     this.addCustomSceneObjects();
     window.addEventListener("resize", this.handleWindowResize);
@@ -46,6 +47,12 @@ class App extends Component {
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
     WEBVR.createButton(this.renderer, this.state.controls);
+  }
+
+  checkScreenOrientation=()=>{
+    if (window.innerHeight > window.innerWidth) {
+      scene.add()
+    }
   }
 
   sceneSetup = async () => {

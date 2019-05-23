@@ -101,11 +101,9 @@ class App extends Component {
 
     Content(contentIndex).map(res => contentBox.add(res));
   };
-  lastTime = 0;
-  ischeck;
 
   animate = time => {
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // this.renderer.setSize(window.innerWidth, window.innerHeight);
     raycaster.setFromCamera({ x: 0, y: 0 }, this.camera);
     let intersectsRight = raycaster.intersectObjects(rightButton.children);
     if (intersectsRight.length > 0) {
@@ -182,6 +180,7 @@ class App extends Component {
     this.renderer.render(this.scene, this.camera);
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
+    window.addEventListener("resize", this.handleWindowResize);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

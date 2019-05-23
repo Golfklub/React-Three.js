@@ -87,7 +87,6 @@ export const DeviceOrientationControls = function(object) {
   };
 
   this.update = function() {
-    console.log('go')
     if (scope.enabled === false) return;
 
     var device = scope.deviceOrientation;

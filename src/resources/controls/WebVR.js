@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /**
  * @author mrdoob / http://mrdoob.com
  * @author Mugen87 / https://github.com/Mugen87
@@ -36,11 +37,9 @@ export const WEBVR = {
         loadingCursor.scale.set(1, 1, 1);
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-          if (window.innerHeight > window.innerWidth) {
+          if (screen.orientation !== "portrait-primary") {
             sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           } else {
-            // console.log(controls);
-            // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
             sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {

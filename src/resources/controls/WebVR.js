@@ -37,11 +37,11 @@ export const WEBVR = {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
           if (window.innerHeight > window.innerWidth) {
-            sphereInside.rotation.set(0, 3.4, 0, "XYZ");
+            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           } else {
             // console.log(controls);
             // sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
-            sphereInside.rotation.set(0, 3.4, 0, "XYZ");
+            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
           sphereInside.rotation.set(0, 0, 0, "XYZ");

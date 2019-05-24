@@ -47,6 +47,12 @@ class App extends Component {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
+    document.body.appendChild(
+      WEBVR.createButton(
+        this.renderer,
+        new DeviceOrientationControls(this.camera)
+      )
+    );
   }
 
   checkScreenOrientation = () => {

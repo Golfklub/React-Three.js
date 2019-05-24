@@ -76,7 +76,6 @@ export const WEBVR = {
 
       function onSessionStarted(session) {
         session.addEventListener("end", onSessionEnded);
-
         renderer.vr.setSession(session);
         button.textContent = "EXIT VR";
 
@@ -210,6 +209,31 @@ export const WEBVR = {
           if (event.detail.display.isPresenting === true) {
             camera.add(crosshair);
           } else {
+            if (/android/i.test(userAgent)) {
+              sphereInside.rotation.set(
+                0,
+                controls.object.rotation.y,
+                0,
+                "XYZ"
+              );
+            }
+            console.log(
+              "Angle",
+              sphereAngle.rotation.x,
+              sphereAngle.rotation.y,
+              sphereAngle.rotation.z
+            );
+            console.log(
+              "Inside",
+              sphereInside.rotation.x,
+              sphereInside.rotation.y,
+              sphereInside.rotation.z
+            );
+            console.log(
+              controls.object.rotation.x,
+              controls.object.rotation.y,
+              controls.object.rotation.z
+            );
             sphereInside.rotation.set(
               0,
               controls.object.rotation.y - 1.57,

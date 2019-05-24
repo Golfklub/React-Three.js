@@ -47,6 +47,12 @@ class App extends Component {
     document.body.appendChild(
       Recenter(this.renderer, this.state.controls, this.state.device)
     );
+    document.body.appendChild(
+      WEBVR.createButton(
+        this.renderer,
+        new DeviceOrientationControls(this.camera)
+      )
+    );
   }
 
   checkScreenOrientation = () => {
@@ -199,6 +205,24 @@ class App extends Component {
     this.state.controls.update();
     TWEEN.update(time); //ใส่ update เพื่อให้ tween animation แสดงผล
     window.addEventListener("resize", this.handleWindowResize);
+    // console.log(
+    //   "controls",
+    //   this.state.controls.object.rotation.x,
+    //   this.state.controls.object.rotation.y,
+    //   this.state.controls.object.rotation.z
+    // );
+    // console.log(
+    //   "Angle",
+    //   sphereAngle.rotation.x,
+    //   sphereAngle.rotation.y,
+    //   sphereAngle.rotation.z
+    // );
+    // console.log(
+    //   "Inside",
+    //   sphereInside.rotation.x,
+    //   sphereInside.rotation.y,
+    //   sphereInside.rotation.z
+    // );
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

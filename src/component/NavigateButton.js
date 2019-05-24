@@ -53,15 +53,11 @@ NavigateButton.add(rightButton, leftButton);
 
 const time = new THREE.Clock();
 
-rightNavigate.on("pointerover", function(ev) {
-  rightNavigate.scale.set(1.15, 1.15, 1);
-});
-
-rightNavigate.on("pointerout", function(ev) {
+rightNavigate.on("touchout", function(ev) {
   rightNavigate.scale.set(1, 1, 1);
 });
 
-rightNavigate.on("pointerdown", function(ev) {
+rightNavigate.on("touchstart", function(ev) {
   rightNavigate.scale.set(0.9, 0.9, 0.9);
   if (contentIndex < contentList.length - 1) {
     for (let index = 0; index < contentBox.children.length; ) {
@@ -75,20 +71,15 @@ rightNavigate.on("pointerdown", function(ev) {
   }
 });
 
-rightNavigate.on("pointerup", function(ev) {
+rightNavigate.on("touchend", function(ev) {
   rightNavigate.scale.set(1.15, 1.15, 1.15);
 });
 
-
-leftNavigate.on("pointerover", function(ev) {
-  leftNavigate.scale.set(1.15, 1.15, 1);
-});
-
-leftNavigate.on("pointerout", function(ev) {
+leftNavigate.on("touchout", function(ev) {
   leftNavigate.scale.set(1, 1, 1);
 });
 
-leftNavigate.on("pointerdown", function(ev) {
+leftNavigate.on("touchstart", function(ev) {
   leftNavigate.scale.set(0.9, 0.9, 0.9);
 
   if (contentIndex > 0) {
@@ -102,8 +93,58 @@ leftNavigate.on("pointerdown", function(ev) {
   }
 });
 
-leftNavigate.on("pointerup", function(ev) {
+leftNavigate.on("touchend", function(ev) {
   leftNavigate.scale.set(1.15, 1.15, 1.15);
 });
 
+rightNavigate.on("mouseover", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1);
+});
 
+rightNavigate.on("mouseout", function(ev) {
+  rightNavigate.scale.set(1, 1, 1);
+});
+
+rightNavigate.on("mousedown", function(ev) {
+  rightNavigate.scale.set(0.9, 0.9, 0.9);
+  if (contentIndex < contentList.length - 1) {
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
+    contentIndex++;
+    contentBox.remove(Content);
+    Content(contentIndex).map(res => {
+      contentBox.add(res);
+    });
+  }
+});
+
+rightNavigate.on("mouseup", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1.15);
+});
+
+leftNavigate.on("mouseover", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1);
+});
+
+leftNavigate.on("mouseout", function(ev) {
+  leftNavigate.scale.set(1, 1, 1);
+});
+
+leftNavigate.on("mousedown", function(ev) {
+  leftNavigate.scale.set(0.9, 0.9, 0.9);
+
+  if (contentIndex > 0) {
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
+    contentIndex--;
+    Content(contentIndex).map(res => {
+      contentBox.add(res);
+    });
+  }
+});
+
+leftNavigate.on("mouseup", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1.15);
+});

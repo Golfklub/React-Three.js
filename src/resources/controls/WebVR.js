@@ -71,7 +71,6 @@ export const WEBVR = {
 
       function onSessionStarted(session) {
         session.addEventListener("end", onSessionEnded);
-
         renderer.vr.setSession(session);
         button.textContent = "EXIT VR";
 

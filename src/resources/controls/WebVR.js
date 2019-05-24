@@ -54,12 +54,7 @@ export const WEBVR = {
             sphereAngle.rotation.set(0, 0, 0, "XYZ");
           }
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          sphereInside.rotation.set(
-            0,
-            controls.object.rotation.y + 1.57,
-            0,
-            "XYZ"
-          );
+          sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
           sphereAngle.rotation.set(0, 0, 0, "XYZ");
         }
 

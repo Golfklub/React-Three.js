@@ -210,13 +210,29 @@ export const WEBVR = {
           if (event.detail.display.isPresenting === true) {
             camera.add(crosshair);
           } else {
-            sphereInside.rotation.set(
-              0,
-              controls.object.rotation.y - 1.57,
-              0,
-              "XYZ"
-            );
-            sphereAngle.rotation.set(0, 0, 0, "XYZ");
+            if (screen.orientation.type === "portrait-primary") {
+              if (/android/i.test(userAgent)) {
+                sphereInside.rotation.set(
+                  0,
+                  controls.object.rotation.y + 1.57,
+                  0,
+                  "XYZ"
+                );
+                sphereAngle.rotation.set(0, 0, 0, "XYZ");
+              } else if (
+                /iPad|iPhone|iPod/.test(userAgent) &&
+                !window.MSStream
+              ) {
+              }
+            } else {
+              sphereInside.rotation.set(
+                0,
+                controls.object.rotation.y + 1.57,
+                0,
+                "XYZ"
+              );
+              sphereAngle.rotation.set(0, 0, 0, "XYZ");
+            }
             camera.remove(camera.children[0]);
           }
         },

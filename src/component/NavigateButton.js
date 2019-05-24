@@ -53,48 +53,68 @@ NavigateButton.add(rightButton, leftButton);
 
 const time = new THREE.Clock();
 
+const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
 rightNavigate.on("touchout", function(ev) {
-  rightNavigate.scale.set(1, 1, 1);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    rightNavigate.scale.set(1, 1, 1);
+  }
 });
 
 rightNavigate.on("touchstart", function(ev) {
-  rightNavigate.scale.set(0.9, 0.9, 0.9);
-  if (contentIndex < contentList.length - 1) {
-    for (let index = 0; index < contentBox.children.length; ) {
-      contentBox.remove(contentBox.children[0]);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    rightNavigate.scale.set(0.9, 0.9, 0.9);
+    if (contentIndex < contentList.length - 1) {
+      for (let index = 0; index < contentBox.children.length; ) {
+        contentBox.remove(contentBox.children[0]);
+      }
+      contentIndex++;
+      contentBox.remove(Content);
+      Content(contentIndex).map(res => {
+        contentBox.add(res);
+      });
     }
-    contentIndex++;
-    contentBox.remove(Content);
-    Content(contentIndex).map(res => {
-      contentBox.add(res);
-    });
   }
 });
 
 rightNavigate.on("touchend", function(ev) {
-  rightNavigate.scale.set(1.15, 1.15, 1.15);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    rightNavigate.scale.set(1.15, 1.15, 1.15);
+  }
 });
 
 leftNavigate.on("touchout", function(ev) {
-  leftNavigate.scale.set(1, 1, 1);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    leftNavigate.scale.set(1, 1, 1);
+  }
 });
 
 leftNavigate.on("touchstart", function(ev) {
-  leftNavigate.scale.set(0.9, 0.9, 0.9);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    leftNavigate.scale.set(0.9, 0.9, 0.9);
 
-  if (contentIndex > 0) {
-    for (let index = 0; index < contentBox.children.length; ) {
-      contentBox.remove(contentBox.children[0]);
+    if (contentIndex > 0) {
+      for (let index = 0; index < contentBox.children.length; ) {
+        contentBox.remove(contentBox.children[0]);
+      }
+      contentIndex--;
+      Content(contentIndex).map(res => {
+        contentBox.add(res);
+      });
     }
-    contentIndex--;
-    Content(contentIndex).map(res => {
-      contentBox.add(res);
-    });
   }
 });
 
 leftNavigate.on("touchend", function(ev) {
-  leftNavigate.scale.set(1.15, 1.15, 1.15);
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+  } else {
+    leftNavigate.scale.set(1.15, 1.15, 1.15);
+  }
 });
 
 rightNavigate.on("mouseover", function(ev) {

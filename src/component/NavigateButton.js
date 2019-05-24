@@ -97,54 +97,54 @@ leftNavigate.on("touchend", function(ev) {
   leftNavigate.scale.set(1.15, 1.15, 1.15);
 });
 
-// rightNavigate.on("mouseover", function(ev) {
-//   rightNavigate.scale.set(1.15, 1.15, 1);
-// });
+rightNavigate.on("mouseover", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1);
+});
 
-// rightNavigate.on("mouseout", function(ev) {
-//   rightNavigate.scale.set(1, 1, 1);
-// });
+rightNavigate.on("mouseout", function(ev) {
+  rightNavigate.scale.set(1, 1, 1);
+});
 
-// rightNavigate.on("mousedown", function(ev) {
-//   rightNavigate.scale.set(0.9, 0.9, 0.9);
-//   if (contentIndex < contentList.length - 1) {
-//     for (let index = 0; index < contentBox.children.length; ) {
-//       contentBox.remove(contentBox.children[0]);
-//     }
-//     contentIndex++;
-//     contentBox.remove(Content);
-//     Content(contentIndex).map(res => {
-//       contentBox.add(res);
-//     });
-//   }
-// });
+rightNavigate.on("mousedown", function(ev) {
+  rightNavigate.scale.set(0.9, 0.9, 0.9);
+  if (contentIndex < contentList.length - 1) {
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
+    contentIndex++;
+    contentBox.remove(Content);
+    Content(contentIndex).map(res => {
+      contentBox.add(res);
+    });
+  }
+});
 
-// rightNavigate.on("mouseup", function(ev) {
-//   rightNavigate.scale.set(1.15, 1.15, 1.15);
-// });
+rightNavigate.on("mouseup", function(ev) {
+  rightNavigate.scale.set(1.15, 1.15, 1.15);
+});
 
-// leftNavigate.on("mouseover", function(ev) {
-//   leftNavigate.scale.set(1.15, 1.15, 1);
-// });
+leftNavigate.on("mouseover", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1);
+});
 
-// leftNavigate.on("mouseout", function(ev) {
-//   leftNavigate.scale.set(1, 1, 1);
-// });
+leftNavigate.on("mouseout", function(ev) {
+  leftNavigate.scale.set(1, 1, 1);
+});
 
-// leftNavigate.on("mousedown", function(ev) {
-//   leftNavigate.scale.set(0.9, 0.9, 0.9);
+leftNavigate.on("mousedown", function(ev) {
+  leftNavigate.scale.set(0.9, 0.9, 0.9);
 
-//   if (contentIndex > 0) {
-//     for (let index = 0; index < contentBox.children.length; ) {
-//       contentBox.remove(contentBox.children[0]);
-//     }
-//     contentIndex--;
-//     Content(contentIndex).map(res => {
-//       contentBox.add(res);
-//     });
-//   }
-// });
+  if (contentIndex > 0) {
+    for (let index = 0; index < contentBox.children.length; ) {
+      contentBox.remove(contentBox.children[0]);
+    }
+    contentIndex--;
+    Content(contentIndex).map(res => {
+      contentBox.add(res);
+    });
+  }
+});
 
-// leftNavigate.on("mouseup", function(ev) {
-//   leftNavigate.scale.set(1.15, 1.15, 1.15);
-// });
+leftNavigate.on("mouseup", function(ev) {
+  leftNavigate.scale.set(1.15, 1.15, 1.15);
+});

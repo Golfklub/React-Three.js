@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /**
  * @author mrdoob / http://mrdoob.com
  * @author Mugen87 / https://github.com/Mugen87
@@ -6,9 +7,11 @@
  */
 
 import { sphereInside, sphereAngle } from "../../component/ShowRoomSky";
+import { camera } from "../../component/sceneSetting";
+import { crosshair, loadingCursor } from "../../component/crosshair";
 
 export const WEBVR = {
-  createButton: function(renderer, options) {
+  createButton: function(renderer, controls, options) {
     if (options && options.frameOfReferenceType) {
       renderer.vr.setFrameOfReferenceType(options.frameOfReferenceType);
     }
@@ -30,8 +33,35 @@ export const WEBVR = {
       };
 
       button.onclick = function() {
-        sphereInside.rotation.set(0, 0, 0, "XYZ");
-        sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        loadingCursor.scale.set(1, 1, 1);
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/android/i.test(userAgent)) {
+          if (screen.orientation.type === "portrait-primary") {
+            sphereInside.rotation.set(
+              0,
+              controls.object.rotation.y + 1.57,
+              0,
+              "XYZ"
+            );
+            sphereAngle.rotation.set(0, 0, 0, "XYZ");
+          } else {
+            sphereInside.rotation.set(
+              0,
+              controls.object.rotation.y + 1.57,
+              0,
+              "XYZ"
+            );
+            sphereAngle.rotation.set(0, 0, 0, "XYZ");
+          }
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          sphereInside.rotation.set(
+            0,
+            controls.object.rotation.y + 1.57,
+            0,
+            "XYZ"
+          );
+          sphereAngle.rotation.set(0, 0, 0, "XYZ");
+        }
 
         device.isPresenting
           ? device.exitPresent()
@@ -68,6 +98,8 @@ export const WEBVR = {
 
       button.style.cursor = "pointer";
       button.style.right = "1";
+      button.style.bottom = "1%";
+
       // button.style.width = "5wh";
 
       button.textContent = "ENTER VR";
@@ -100,6 +132,7 @@ export const WEBVR = {
 
       button.style.cursor = "auto";
       button.style.right = "1%";
+      button.style.bottom = "1%";
       // button.style.width = "10%";
       button.textContent = "VR NOT FOUND";
       button.onmouseenter = null;
@@ -112,7 +145,7 @@ export const WEBVR = {
 
     function stylizeElement(element) {
       element.style.position = "absolute";
-      element.style.bottom = "20px";
+      element.style.bottom = "1%";
       element.style.padding = "12px 6px";
       element.style.border = "1px solid #fff";
       element.style.borderRadius = "4px";
@@ -172,9 +205,20 @@ export const WEBVR = {
       window.addEventListener(
         "vrdisplaypresentchange",
         function(event) {
-          button.textContent = event.display.isPresenting
-            ? "EXIT VR"
-            : "ENTER VR";
+          var userAgent =
+            navigator.userAgent || navigator.vendor || window.opera;
+          if (event.detail.display.isPresenting === true) {
+            camera.add(crosshair);
+          } else {
+            sphereInside.rotation.set(
+              0,
+              controls.object.rotation.y - 1.57,
+              0,
+              "XYZ"
+            );
+            sphereAngle.rotation.set(0, 0, 0, "XYZ");
+            camera.remove(camera.children[0]);
+          }
         },
         false
       );

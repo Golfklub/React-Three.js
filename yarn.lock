@@ -4288,6 +4288,11 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+gaze-event@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/gaze-event/-/gaze-event-2.0.5.tgz#26859e2955610009b7352343615a2c49a0bbdbc5"
+  integrity sha512-nOR+tYK8TnQvblMSVFA7vypk4nIkUKASLoP8gGH9vVPiY369e33qje/tRBf/ZBqLTDdnoxef6fTwecysjqf4XQ==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"

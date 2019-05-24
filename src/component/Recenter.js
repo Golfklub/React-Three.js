@@ -1,6 +1,4 @@
-import * as THREE from "three";
 import { sphereInside, sphereAngle } from "./ShowRoomSky";
-import { rootContent } from "./RootContent";
 
 export const Recenter = (renderer, controls, type) => {
   function showRecenter(device) {
@@ -9,6 +7,7 @@ export const Recenter = (renderer, controls, type) => {
     button.style.cursor = "pointer";
     button.style.left = "1%";
     // button.style.width = "100px";
+    button.style.bottom = "1%";
 
     button.textContent = "RECENTER";
 
@@ -21,16 +20,11 @@ export const Recenter = (renderer, controls, type) => {
 
     button.onclick = function() {
       if (type === "desktop") {
-        // controls.object.position.set(0, 0, 0);
-        // controls.object.position.x = 0;
-
-        controls.object.position.y = 0;
-        // controls.object.position.z = 0;
+        controls.object.position.x = 0;
+        controls.object.position.y = 1.6;
       } else if (type === "vr") {
         sphereInside.rotation.set(controls.object.rotation.x, 0, 0, "XYZ");
         sphereAngle.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-        // showroomsky.rotateY(controls.object.rotation.y);
-        // showroomsky.rotateZ(controls.object.rotation.z);
       }
     };
     renderer.vr.setDevice(device);
@@ -38,7 +32,7 @@ export const Recenter = (renderer, controls, type) => {
 
   function stylizeElement(element) {
     element.style.position = "absolute";
-    element.style.bottom = "20px";
+    element.style.bottom = "1%";
     element.style.padding = "12px 6px";
     element.style.border = "1px solid #fff";
     element.style.borderRadius = "4px";

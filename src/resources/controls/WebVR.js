@@ -213,7 +213,7 @@ export const WEBVR = {
             if (/android/i.test(userAgent)) {
               sphereInside.rotation.set(
                 0,
-                controls.object.rotation.y + 1.57,
+                controls.object.rotation.y,
                 0,
                 "XYZ"
               );

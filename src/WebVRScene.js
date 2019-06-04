@@ -74,12 +74,14 @@ class App extends Component {
 
     this.interaction = new Interaction(this.renderer, this.scene, this.camera);
     this.checkDevice();
+
     document.body.appendChild(
       WEBVR.createButton(
         this.renderer,
         new DeviceOrientationControls(this.camera)
       )
     );
+
     this.renderer.setAnimationLoop(() => {
       this.renderer.render(this.scene, this.camera);
     });
@@ -92,18 +94,6 @@ class App extends Component {
         let controls = new DeviceOrientationControls(this.camera);
         this.renderer.vr.enabled = true;
         this.setState({ controls: controls, device: "vr" });
-        vrDisplay.requestAnimationFrame(this.animate);
-        this.startAnimationLoop();
-        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(userAgent)) {
-          if (screen.orientation.type === "portrait-primary") {
-            sphereInside.rotation.set(0, 1.57, 0, "XYZ");
-          } else {
-            sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-          }
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          sphereInside.rotation.set(0, controls.object.rotation.y, 0, "XYZ");
-        }
       } else {
         let controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.setState({ controls: controls, device: "desktop" });
@@ -117,7 +107,6 @@ class App extends Component {
 
   addCustomSceneObjects = () => {
     // camera.add(crosshair);
-    this.scene.add(camera);
     this.scene.add(sphereAngle.add(showroomsky, sphereInside));
     sphereInside.add(circleframe, Toolbar, logo, NavigateButton, contentBox);
     sphereAngle.position.set(0, 1.6, 0);

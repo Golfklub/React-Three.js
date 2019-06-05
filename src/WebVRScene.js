@@ -223,6 +223,7 @@ class App extends Component {
     //   sphereInside.rotation.y,
     //   sphereInside.rotation.z
     // );
+    console.log(this.state.controls);
   };
 
   startAnimationLoop = () => !this.frameId && this.animate();

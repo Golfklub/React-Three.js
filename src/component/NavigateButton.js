@@ -1,10 +1,8 @@
 import * as THREE from "three";
 import { LinearFilter } from "three";
-import { Interaction } from "three.interaction";
 import { boxA, contentBox } from "./showroomcontent";
 import { Content } from "./showroomcontent";
 import { contentList } from "../resources/productAPI/showroomContent";
-import { scene } from "./sceneSetting";
 var TWEEN = require("@tweenjs/tween.js");
 
 export let contentIndex = 0;

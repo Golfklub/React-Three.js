@@ -15,7 +15,7 @@
     "react-three-renderer-fiber": "^0.0.6",
     "react-use-gesture": "^5.0.0",
     "serve": "^11.0.0",
-    "three": "^0.104.0",
+    "three": "^0.137.0",
     "three-orbitcontrols": "^2.102.1",
     "three-vrcontrols-module": "^2.2.1",
     "three.interaction": "^0.2.2",
